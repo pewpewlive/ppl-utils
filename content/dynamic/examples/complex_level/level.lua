@@ -1,33 +1,58 @@
 -- Set how large the level will be.
-pewpew.set_level_size(500fx, 500fx)
+local width = 600fx
+local height = 500fx
+pewpew.set_level_size(width, height)
 
 -- Create an entity at position (0,0) that will hold the background mesh.
 local background = pewpew.new_customizable_entity(0fx, 0fx)
-pewpew.customizable_entity_set_mesh(background, "/dynamic/examples/simple_level/square500x500_graphic.lua", 0)
+pewpew.customizable_entity_set_mesh(background, "/dynamic/examples/complex_level/rectangles_graphic.lua", 0)
 
--- Create the player's ship.
-local player_x = 250fx
-local player_y = 100fx
-local player_index = 0 -- there is only one player
-pewpew.new_player_ship(player_x, player_y, player_index)
+-- Configure the player, with 2 shields.
+pewpew.configure_player(0, {shield = 2})
 
--- Create a "baf" enemy.
-local baf_x = 250fx
-local baf_y = 400fx
-local baf_angle = 0fx
-local baf_speed = 10fx
-local lifetime = -1 -- Use a negative number to indicate that the lifetime is infinite
-pewpew.new_baf(baf_x, baf_y, baf_angle, baf_speed, lifetime)
+-- Create the player's ship at the center of the map.
+local ship_id = pewpew.new_player_ship(width / 2fx, height / 2fx, 0)
+-- Configure the permanent weapon of the player's ship.
+pewpew.configure_player_ship_weapon(ship_id, { frequency = pewpew.CannonFrequency.FREQ_6, cannon = pewpew.CannonType.DOUBLE})
 
 local time = 0
-
 -- A function that will get called every game tick, which is 30 times per seconds.
 function level_tick()
+  time = time + 1
+  pewpew.increase_score_of_player(0, 1)
+
   -- Stop the game if the player is dead.
-  local conf = pewpew.get_player_configuration(player_index)
+  local conf = pewpew.get_player_configuration(0)
   if conf["has_lost"] == true then
     pewpew.stop_game()
   end
+
+  -- Every 30 tick, create a new enemy.
+  if time % 30 == 0 then
+    local x = fmath.random_fixedpoint(0fx, width)
+    local y = fmath.random_fixedpoint(0fx, height)
+
+    local choice = fmath.random_int(0, 100)
+    
+    -- Create a new BAF
+    if choice < 50 then
+      local angle = fmath.from_fraction(-1, 4) * fmath.tau()
+      local baf_speed = fmath.random_fixedpoint(5fx, 10fx)
+      pewpew.new_baf(x, y, angle, baf_speed, -1)
+      -- Also create a small blue explosion
+      pewpew.create_explosion(x, y, 0xff0000ff, 0.2047fx, 50)
+    elseif choice < 80 then
+    -- Create a new Mothership
+      local angle = fmath.random_fixedpoint(0fx, fmath.tau())
+      pewpew.new_mothership(x, y, pewpew.MothershipType.SEVEN_CORNERS, angle)
+    elseif choice < 90 then
+      local angle = fmath.random_fixedpoint(0fx, fmath.tau())
+      local acceleration = fmath.random_fixedpoint(0.2000fx, 1fx)
+      pewpew.new_inertiac(x, y, acceleration, angle)
+    end
+  end
+
+
 end
 
 -- Register the `level_tick` function to be called at every game tick.

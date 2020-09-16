@@ -11,7 +11,7 @@ end
 
 local index = 0
 local line = {}
-for angle=0, 6.2831, 0.1 do
+for angle = 0, math.pi * 2, 0.1 do
   local radius = polar_func(angle)
   local x,y = polar_to_cartesian(angle, radius)
   table.insert(computed_vertexes, {x, y})
