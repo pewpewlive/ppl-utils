@@ -1,4 +1,4 @@
-local boxes = require("dynamic/other/tutorial/box_template.lua")
+local boxes = require("dynamic/examples/tutorial/box_template.lua")
 
 function clamp(v, min, max)
   if v < min then
@@ -9,16 +9,16 @@ function clamp(v, min, max)
   return v
 end
 
-local box_outer_mesh_info = {"/dynamic/other/tutorial/box_graphics.lua", 0}
-local box_inner_mesh_info = {"/dynamic/other/tutorial/box_graphics.lua", 1}
+local box_outer_mesh_info = {"/dynamic/examples/tutorial/box_graphics.lua", 0}
+local box_inner_mesh_info = {"/dynamic/examples/tutorial/box_graphics.lua", 1}
 
 local w = 400fx
 local h = 400fx
 local margin = 50fx
 pewpew.set_level_size(w, h)
 
-local id = pewpew.new_customizable_entity(0, 0)
-pewpew.customizable_entity_set_mesh(id, "/dynamic/other/tutorial/level_graphics.lua", 0)
+local id = pewpew.new_customizable_entity(0fx, 0fx)
+pewpew.customizable_entity_set_mesh(id, "/dynamic/examples/tutorial/level_graphics.lua", 0)
 
 ship = pewpew.new_player_ship(w / 2fx, h / 2fx, 0)
 local camera_distance = -15fx
@@ -62,8 +62,8 @@ function level_tick()
                    function()
                      mode_shoot = true
                      mode_shoot_time = 0
-                     local cage = pewpew.new_customizable_entity(0fx, 0fx)
-                     pewpew.customizable_entity_set_mesh(cage, "/dynamic/other/tutorial/cage_graphics.lua", 0)
+                     local cage = pewpew.new_customizable_entity(w / 2fx, h / 2fx)
+                     pewpew.customizable_entity_set_mesh(cage, "/dynamic/examples/tutorial/cage_graphics.lua", 0)
                      pewpew.configure_player_ship_weapon(ship, {frequency = 4, cannon = pewpew.CannonType.DOUBLE})
                      local up_angle = fmath.tau() * fmath.from_fraction(1, 4)
                      local down_angle = fmath.tau() * fmath.from_fraction(3, 4)

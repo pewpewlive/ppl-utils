@@ -1,4 +1,6 @@
-local gfx = require("dynamic/other/tutorial/graphics_helpers.lua")
+local gfx = require("dynamic/examples/tutorial/graphics_helpers.lua")
+
+gfx.print()
 
 function make_level_mesh()
   local mesh = gfx.new_mesh()
