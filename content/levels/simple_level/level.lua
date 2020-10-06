@@ -3,7 +3,7 @@ pewpew.set_level_size(500fx, 500fx)
 
 -- Create an entity at position (0,0) that will hold the background mesh.
 local background = pewpew.new_customizable_entity(0fx, 0fx)
-pewpew.customizable_entity_set_mesh(background, "/dynamic/examples/simple_level/square500x500_graphic.lua", 0)
+pewpew.customizable_entity_set_mesh(background, "/dynamic/square500x500_graphic.lua", 0)
 
 -- Create the player's ship.
 local player_x = 250fx

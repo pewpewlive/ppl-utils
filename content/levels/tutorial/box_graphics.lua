@@ -1,4 +1,4 @@
-local gfx = require("dynamic/examples/tutorial/graphics_helpers.lua")
+local gfx = require("/dynamic/graphics_helpers.lua")
 
 meshes = {gfx.new_mesh(), gfx.new_mesh()}
 

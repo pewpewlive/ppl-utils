@@ -69,8 +69,4 @@ function helper.make_color(r, g, b, a)
   return color
 end
 
-function helper.print()
-  pewpew.print("it works!")
-end
-
 return helper

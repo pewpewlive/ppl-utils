@@ -11,13 +11,13 @@ configs = [{'params':"GOOS=windows GOARCH=amd64", 'name':"windows-x64"},
            {'params':"GOOS=linux GOARCH=arm", 'name':"linux-arm"}]
 
 for config in configs:
-  os.system("rm utils_server")
-  os.system("rm utils_server.exe")
+  os.system("rm ppl-utils")
+  os.system("rm ppl-utils.exe")
   os.system("rm -rf ppl-utils")
   os.system("mkdir -p ppl-utils")
-  os.system("env " + config['params'] + " go build utils_server.go")
-  os.system("mv utils_server.exe ppl-utils/")
-  os.system("mv utils_server ppl-utils/")
+  os.system("env " + config['params'] + " go build .")
+  os.system("mv ppl-utils.exe ppl-utils/")
+  os.system("mv ppl-utils ppl-utils/")
   os.system("cp -r content/ ppl-utils/content/")
   os.system("find . -name \".DS_Store\" -delete")
   os.system("zip -r ppl-utils-" + config['name'] + ".zip ppl-utils")

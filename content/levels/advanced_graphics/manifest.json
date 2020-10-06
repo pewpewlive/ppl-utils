@@ -1,0 +1,5 @@
+{
+  "name":"Advanced graphics",
+  "description":"Demonstrates how to create graphics.",
+  "entry_point":"level.lua"
+}

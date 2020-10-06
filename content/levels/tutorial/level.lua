@@ -1,4 +1,5 @@
-local boxes = require("dynamic/examples/tutorial/box_template.lua")
+local boxes = require("/dynamic/box_template.lua")
+local constants = require("/dynamic/constants.lua")
 
 function clamp(v, min, max)
   if v < min then
@@ -9,16 +10,16 @@ function clamp(v, min, max)
   return v
 end
 
-local box_outer_mesh_info = {"/dynamic/examples/tutorial/box_graphics.lua", 0}
-local box_inner_mesh_info = {"/dynamic/examples/tutorial/box_graphics.lua", 1}
+local box_outer_mesh_info = {"/dynamic/box_graphics.lua", 0}
+local box_inner_mesh_info = {"/dynamic/box_graphics.lua", 1}
 
-local w = 400fx
-local h = 400fx
+local w = constants.level_width
+local h = constants.level_height
 local margin = 50fx
 pewpew.set_level_size(w, h)
 
 local id = pewpew.new_customizable_entity(0fx, 0fx)
-pewpew.customizable_entity_set_mesh(id, "/dynamic/examples/tutorial/level_graphics.lua", 0)
+pewpew.customizable_entity_set_mesh(id, "/dynamic/level_graphics.lua", 0)
 
 ship = pewpew.new_player_ship(w / 2fx, h / 2fx, 0)
 local camera_distance = -15fx
@@ -49,7 +50,7 @@ function level_tick()
    end
 
    if time == 120 then
-       local positions = {{margin, margin}, {w - margin, margin}, {margin, h -margin}, {w - margin, h -margin}}
+       local positions = {{margin, margin}, {w - margin, margin}, {margin, h - margin}, {w - margin, h - margin}}
        box_caught = 0
        for i = 1, 4 do
            local x = positions[i][1]
@@ -63,16 +64,18 @@ function level_tick()
                      mode_shoot = true
                      mode_shoot_time = 0
                      local cage = pewpew.new_customizable_entity(w / 2fx, h / 2fx)
-                     pewpew.customizable_entity_set_mesh(cage, "/dynamic/examples/tutorial/cage_graphics.lua", 0)
+                     pewpew.customizable_entity_set_mesh(cage, "/dynamic/cage_graphics.lua", 0)
                      pewpew.configure_player_ship_weapon(ship, {frequency = 4, cannon = pewpew.CannonType.DOUBLE})
                      local up_angle = fmath.tau() * fmath.from_fraction(1, 4)
                      local down_angle = fmath.tau() * fmath.from_fraction(3, 4)
                      local left_angle = fmath.tau() * fmath.from_fraction(1, 2)
-                     for i = margin, w - margin, 100fx do
-                         pewpew.new_baf(i, h - margin, 0fx, 10fx, -1)
-                         pewpew.new_baf(i, margin, left_angle, 10fx, -1)
-                         pewpew.new_baf(margin, i, down_angle, 10fx, -1)
-                         pewpew.new_baf(w - margin, i, up_angle, 10fx, -1)
+                     for x = margin, w - margin, 100fx do
+                       pewpew.new_baf(x, h - margin, 0fx, 10fx, -1)
+                       pewpew.new_baf(x, margin, left_angle, 10fx, -1)
+                     end
+                     for y = margin, h - margin, 100fx do
+                       pewpew.new_baf(margin, y, down_angle, 10fx, -1)
+                       pewpew.new_baf(w - margin, y, up_angle, 10fx, -1)
                      end
                    end)
                    pewpew.add_arrow_to_player_ship(ship, final_box.handle, 0x00ff00ff)

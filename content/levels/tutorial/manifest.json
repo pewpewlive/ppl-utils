@@ -1,0 +1,5 @@
+{
+  "name":"Tutorial",
+  "description":"The tutorial.",
+  "entry_point":"level.lua"
+}

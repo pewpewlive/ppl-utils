@@ -1,0 +1,5 @@
+{
+  "name":"Advanced level",
+  "description":"Demonstrates how to create enemies over time.",
+  "entry_point":"level.lua"
+}

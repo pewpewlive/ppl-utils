@@ -1,4 +1,4 @@
-local gfx = require("dynamic/examples/tutorial/graphics_helpers.lua")
+local gfx = require("/dynamic/graphics_helpers.lua")
 
 function make_cage_mesh()
   local mesh = gfx.new_mesh()
