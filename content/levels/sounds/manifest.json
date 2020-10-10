@@ -1,5 +1,5 @@
 {
   "name":"Sound level",
-  "description":"Plays two different sounds from two different locations.",
+  "descriptions":["Plays two different sounds from two different locations."],
   "entry_point":"level.lua"
 }

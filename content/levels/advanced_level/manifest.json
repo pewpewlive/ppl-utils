@@ -1,5 +1,6 @@
 {
   "name":"Advanced level",
-  "description":"Demonstrates how to create enemies over time.",
-  "entry_point":"level.lua"
+  "descriptions":["Demonstrates how to create enemies over time."],
+  "entry_point":"level.lua",
+  "rank_thresholds_1p":{"bronze":1000, "silver":2000, "gold":3000}
 }

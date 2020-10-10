@@ -4,6 +4,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
 	"io/ioutil"
 	"log"
@@ -13,27 +14,32 @@ import (
 	"time"
 )
 
+// LevelOnDisk contains the info necessary to identify a level.
 type LevelOnDisk struct {
 	name      string
 	author    string
 	directory string
 }
 
+// LevelJSON stores the JSON of a level.
 type LevelJSON struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	EntryPoint  string `json:"entry_point"`
 }
 
+// GetDir returns the path to the content directory.
 func GetDir() string {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
-		log.Fatal(err)
+		log.Print(err.Error())
+		return ""
 	}
 	dir = dir + string(os.PathSeparator) + "content"
 	return dir
 }
 
+// ListLevels lists the levels.
 // A level is a subdirectory that contains a properly formatted json file.
 func ListLevels() []LevelOnDisk {
 	levels := []LevelOnDisk{}
@@ -72,27 +78,25 @@ func canRead(path string) bool {
 	_, err := os.Stat(path)
 	if err == nil {
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
-// http://localhost:9000/custom_levels/get_level?level_id=/Users/jif/Code/ppl-utils/content/dynamic/levels/simple_level/
-
-// levelId is the path to the directory containing the level.
-func GetLevelData(levelId string) bytes.Buffer {
+// GetLevelData returns a zip containing the level.
+// levelID is the path to the directory containing the level.
+func GetLevelData(levelID string) (bytes.Buffer, error) {
 	var buffer bytes.Buffer
-	if !canRead(levelId) {
-		return buffer
+	if !canRead(levelID) {
+		return buffer, errors.New("Can't read path")
 	}
 	zipWriter := zip.NewWriter(&buffer)
 	defer zipWriter.Close()
 
-	filepath.Walk(levelId,
+	filepath.Walk(levelID,
 		func(path string, info os.FileInfo, err error) error {
 			log.Print(path)
 			var header zip.FileHeader
-			header.Name = "level/" + strings.TrimPrefix(path, levelId)
+			header.Name = "level/" + strings.TrimPrefix(path, levelID)
 			header.Method = zip.Deflate
 			header.Modified = time.Now()
 			zipFileWriter, err := zipWriter.CreateHeader(&header)
@@ -114,5 +118,10 @@ func GetLevelData(levelId string) bytes.Buffer {
 		})
 
 	zipWriter.Close()
-	return buffer
+	return buffer, nil
+}
+
+// GetLevelManifest returns the manifest of the level.
+func GetLevelManifest(levelID string) ([]byte, error) {
+	return ioutil.ReadFile(levelID + "manifest.json")
 }
