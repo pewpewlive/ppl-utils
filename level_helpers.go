@@ -64,6 +64,7 @@ func ListLevels() []LevelOnDisk {
 			}
 
 			level := new(LevelOnDisk)
+			directory = strings.ReplaceAll(directory, string(os.PathSeparator), "/")
 			level.directory = directory
 			level.name = levelJSON.Name
 			level.author = "TBD"
@@ -95,6 +96,7 @@ func GetLevelData(levelID string) (bytes.Buffer, error) {
 	filepath.Walk(levelID,
 		func(path string, info os.FileInfo, err error) error {
 			log.Print(path)
+			path = strings.ReplaceAll(path, string(os.PathSeparator), "/")
 			var header zip.FileHeader
 			header.Name = "level/" + strings.TrimPrefix(path, levelID)
 			header.Method = zip.Deflate
