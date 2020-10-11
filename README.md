@@ -11,10 +11,10 @@ This repository hosts the code source for the PewPew Live public development env
     * On macOS: open a terminal. Drag and drop the `ppl-utils` binary into it. Press enter.
     * On linux: execute `ppl-utils`.
 1. This creates a web server that hosts PewPew Live on the port 9000. Point your browser to
-  [http://localhost:9000/files/pewpew.html] to launch PewPew Live.
-1. When launched, PewPew Live loads the files from the `content/dynamic/` directory and
-  display the list of levels it has found. Play a level by clicking on it.
-1. Change code in `content/dynamic/` and see how it affects the levels.
+  [http://localhost:9000/pewpew.html] to launch PewPew Live.
+1. When launched, PewPew Live lists the level found in the `content/levels/` directory.
+  Play a level by clicking on it.
+1. Change code in `content/levels/` and see how it affects the levels.
 1. Open the browser's Javascript console to see the error messages.
 1. Read the [API documentation].
 1. Ask questions in the [Discord chat room].
@@ -30,7 +30,7 @@ The only change is that we use 2 space indentation to be consistent with the res
 **Important**: `go run .` won't work.
 
 ### To generate the archives for all the platforms
-`./generate_archives.py`
+`python generate_archives.py`
 
 [Download a prebuilt archive]: https://github.com/jyaif/ppl-utils/tags
 [http://localhost:9000/files/pewpew.html]: http://localhost:9000/files/pewpew.html

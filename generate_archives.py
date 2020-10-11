@@ -1,25 +1,72 @@
 #!/usr/bin/python
 
 import os
+import platform
+import shutil
 
-configs = [{'params':"GOOS=windows GOARCH=amd64", 'name':"windows-x64"}, 
-           {'params':"GOOS=windows GOARCH=386", 'name':"windows-x32"},
-           {'params':"GOOS=darwin GOARCH=amd64", 'name':"macos-x64"},
-           {'params':"GOOS=linux GOARCH=amd64", 'name':"linux-x64"},
-           {'params':"GOOS=linux GOARCH=386", 'name':"linux-x32"},
-           {'params':"GOOS=linux GOARCH=arm64", 'name':"linux-arm64"},
-           {'params':"GOOS=linux GOARCH=arm", 'name':"linux-arm"}]
+configs = [{'env':{'GOOS':'windows', 'GOARCH':'amd64'}, 'name':'windows-x64'},
+           {'env':{'GOOS':'windows', 'GOARCH':'386'}, 'name':'windows-x32'},
+           {'env':{'GOOS':'darwin', 'GOARCH':'amd64'}, 'name':'macos-x64'},
+           {'env':{'GOOS':'linux', 'GOARCH':'amd64'}, 'name':'linux-x64'},
+           {'env':{'GOOS':'linux', 'GOARCH':'386'}, 'name':'linux-x32'},
+           {'env':{'GOOS':'linux', 'GOARCH':'arm64'}, 'name':'linux-arm64'},
+           {'env':{'GOOS':'linux', 'GOARCH':'arm'}, 'name':'linux-arm'}]
 
 for config in configs:
-  os.system("rm ppl-utils")
-  os.system("rm ppl-utils.exe")
-  os.system("rm -rf ppl-utils")
-  os.system("mkdir -p ppl-utils")
-  os.system("env " + config['params'] + " go build .")
-  os.system("mv ppl-utils.exe ppl-utils/")
-  os.system("mv ppl-utils ppl-utils/")
-  os.system("cp -r content/ ppl-utils/content/")
-  os.system("find . -name \".DS_Store\" -delete")
-  os.system("zip -r ppl-utils-" + config['name'] + ".zip ppl-utils")
+  directory_name = 'ppl-utils-' + config['name']
+  print('Creating ' + directory_name + '.zip')
 
-os.system("rm -rf ppl-utils")
+  # Try to remove the Linux/MacOS binary
+  try:
+    os.remove('ppl-utils')
+  except:
+    pass
+
+  # Try to remove the Windows binary
+  try:
+    os.remove('ppl-utils.exe')
+  except:
+    pass
+
+  # Try to remove the temporary directory we'll use
+  try:
+    shutil.rmtree(directory_name)
+  except:
+    pass
+
+  # Create the temporary directory
+  os.makedirs(directory_name)
+
+  # Backup environment
+  environment_backup = dict(os.environ)
+
+  # Change environment
+  for key in config['env']:
+    os.environ[key] = config['env'][key]
+
+  # Build
+  os.system('go build .')
+
+  # Restore original environment
+  os.environ.clear()
+  os.environ.update(environment_backup)
+
+  # Move the binary to the temporary directory
+  # Try Linux/macOS first
+  if os.path.exists('ppl-utils'):
+    shutil.move('ppl-utils', directory_name)
+  # Try Windows second
+  if os.path.exists('ppl-utils.exe'):
+    shutil.move('ppl-utils.exe', directory_name)
+
+  # Copy the other content
+  shutil.copytree('content', directory_name + '/content')
+
+  # Zip the temporary directory
+  shutil.make_archive(directory_name, 'zip', directory_name)
+
+  # Try to remove the temporary directory
+  try:
+    shutil.rmtree(directory_name)
+  except:
+    pass
