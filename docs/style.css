@@ -1,0 +1,171 @@
+body {
+  margin: 40px auto;
+  max-width: 1000px;
+  line-height: 1.6;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  padding: 0 10px;
+  background-color: #111;
+  color: #eee;
+}
+
+a:link {
+  color: #118cc6;
+}
+
+a:visited {
+  color: #e94078;
+}
+
+.enum_table {
+  border: 1px solid #444;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td {
+  border: 1px solid #444;
+  padding: 6px;
+}
+
+.enum_header {
+  border-color: #444;
+  background-color: #333;
+}
+
+.enum_entry {
+  font-family: monaco,Consolas,Lucida Console,monospace;
+  color: rgb(255, 236, 94);
+}
+
+.doc_entry {
+  border-style: solid;
+  border-color: #444;
+  border-width: 1px;
+}
+
+.prototype { 
+  font-family: monaco,Consolas,Lucida Console,monospace;
+  background-color: #333;
+  padding:6px;
+}
+
+.function {
+  border-radius:3px;
+  padding:4px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.type { 
+  background-color: #000;
+  border-radius:3px;
+  padding:2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  color: rgb(115, 255, 115);
+}
+
+.type_title { 
+  background-color: #000;
+  border-radius:3px;
+  padding:2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  color: rgb(115, 255, 115);
+
+}
+
+.type_small {
+  background-color: #000;
+  border-radius:3px;
+  padding:2px;
+  padding-left: 6px;
+  padding-right: 6px;
+  color: rgb(115, 255, 115);
+  font-size: 15px;
+}
+
+.map_type_content { 
+  background-color: rgb(24, 67, 31);
+  padding:5px;
+}
+
+.parameter { 
+  font-family: monaco,Consolas,Lucida Console,monospace;
+  color: rgb(136, 136, 136);
+}
+
+.function_name {
+  color: rgb(255, 236, 94);
+  /* font-size: 18px; */
+}
+
+.comment {
+  color: rgb(207, 207, 207);
+  padding:10px;
+  font-family:"Gotham-Book", "Arial", Sans-Serif;
+}
+
+.section_title {
+  color: rgb(243, 243, 243);
+  padding:10px;
+  font-family:"Gotham-Book", "Arial", Sans-Serif;
+  font-size: 40px;
+  /* font-weight: 600; */
+}
+
+.sub_section_title {
+  color: rgb(207, 207, 207);
+  padding:10px;
+  font-family:"Gotham-Book", "Arial", Sans-Serif;
+  font-size: 32px;
+  /* font-weight: 600; */
+}
+
+.lib_section {
+  color: rgb(207, 207, 207);
+  padding:10px;
+  font-family:"Gotham-Book", "Arial", Sans-Serif;
+  font-size: 25px;
+  /* font-weight: 600; */
+}
+
+.spacer {
+  padding:4px;
+}
+
+
+/* The navigation bar */
+.navbar {
+  overflow: hidden;
+  background-color: rgb(5, 5, 5);
+  position: fixed; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 1000px;
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  /* color: #f2f2f2; */
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a:hover {
+  background: #ddd;
+  color: black;
+}
+
+div.content {
+  margin-top: 80px;
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -45px;
+  visibility: hidden;
+}

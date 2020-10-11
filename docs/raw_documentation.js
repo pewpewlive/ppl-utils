@@ -1,0 +1,1062 @@
+var documentation = [
+{
+"name":"pewpew",
+"enums": [
+{
+"name":"EntityType",
+"values": [
+"ASTEROID",
+"INERTIAC",
+"BAF",
+"MOTHERSHIP",
+"MOTHERSHIP_BULLET",
+],
+},
+{
+"name":"MothershipType",
+"values": [
+"THREE_CORNERS",
+"FOUR_CORNERS",
+"FIVE_CORNERS",
+"SIX_CORNERS",
+"SEVEN_CORNERS",
+],
+},
+{
+"name":"CannonType",
+"values": [
+"SINGLE",
+"TIC_TOC",
+"DOUBLE",
+"TRIPLE",
+"FOUR_DIRECTIONS",
+"DOUBLE_SWIPE",
+"HEMISPHERE",
+],
+},
+{
+"name":"CannonFrequency",
+"values": [
+"FREQ_30",
+"FREQ_15",
+"FREQ_10",
+"FREQ_7_5",
+"FREQ_6",
+"FREQ_5",
+"FREQ_3",
+"FREQ_2",
+"FREQ_1",
+],
+},
+{
+"name":"BombType",
+"values": [
+"FREEZE",
+"REPULSIVE",
+"ATOMIZE",
+"SMALL_ATOMIZE",
+],
+},
+],
+"functions": [
+{
+"return_types": [
+],
+"func_name":"print",
+"comment":"Prints `str` in the console for debugging.",
+"parameters": [
+{
+"name":"str",
+"type":"String",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"set_level_size",
+"comment":"Sets the level's size. Implicetely adds walls to make sure that entities can not go outside of the level's boudaries. `width` and `height` are clamped to the range ]0fx, 6000fx]. If this function is not called, the level size is (10fx, 10fx), which is uselessly small for most cases.",
+"parameters": [
+{
+"name":"width",
+"type":"FixedPoint",
+},
+{
+"name":"height",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"add_update_callback",
+"comment":"Adds a callback that will be updated at each game tick.",
+"parameters": [
+{
+"name":"update_callback",
+"type":"Callback",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int32",
+},
+],
+"func_name":"get_number_of_players",
+"comment":"Returns the number of players in the game.",
+"parameters": [
+],
+},
+{
+"return_types": [
+],
+"func_name":"increase_score_of_player",
+"comment":"Increases the score of the player at the specified `index` by an amount of `delta`. `index` must in the range [0, get_number_of_players() - 1]. Note that `delta` can be negative.",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+{
+"name":"delta",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"stop_game",
+"comment":"Ends the current game.",
+"parameters": [
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+{
+"type":"FixedPoint",
+},
+{
+"type":"FixedPoint",
+},
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"get_player_inputs",
+"comment":"Returns the inputs of the player at the specified `index`. The return values are in order: the movement joystick's angle (between 0 and 2pi), the movement joystick's distance (between 0 and 1), the shoot joystick's angle (between 0 and 2pi), and the shoot joystick's distance (between 0 and 1).",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int64",
+},
+],
+"func_name":"get_score_of_player",
+"comment":"Returns the score of the player at the specified `index`. `index` must in the range [0, get_number_of_players() - 1].",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"configure_player",
+"comment":"Configures the player at the specified `index`. `index` must in the range [0, get_number_of_players() - 1].",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+{
+"name":"configuration",
+"type":"Map",
+"map_entries": [
+{
+"name":"has_lost",
+"type":"Boolean",
+},
+{
+"name":"shield",
+"type":"Int32",
+},
+{
+"name":"camera_distance",
+"type":"FixedPoint",
+},
+{
+"name":"move_joystick_color",
+"type":"Int32",
+},
+{
+"name":"shoot_joystick_color",
+"type":"Int32",
+},
+],
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Map",
+"map_entries": [
+{
+"name":"shield",
+"type":"Int32",
+},
+{
+"name":"has_lost",
+"type":"Boolean",
+},
+],
+},
+],
+"func_name":"get_player_configuration",
+"comment":"Returns a map containing the configuration of the player at the specified `player_index`.",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"configure_player_ship_weapon",
+"comment":"Configures the weapon of the ship identified with `ship_id` using `configuration`. `frequency` determines the frequency of the shots. `cannon` determines the type of cannon. `duration` determines the number of game ticks during which the weapon will be available. Once the duration expires, the weapon reverts to its permanent configuration. If `duration` is omited, the weapon will be permanently set to this configuration. If `frequency` or `cannon` is omited, the ship is configured to not have any weapon.",
+"parameters": [
+{
+"name":"ship_id",
+"type":"EntityId",
+},
+{
+"name":"configuration",
+"type":"Map",
+"map_entries": [
+{
+"name":"frequency",
+"type":"Int32",
+"enum": "CannonFrequency",
+},
+{
+"name":"cannon",
+"type":"Int32",
+"enum": "CannonType",
+},
+{
+"name":"duration",
+"type":"Int32",
+},
+],
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int32",
+},
+],
+"func_name":"add_arrow_to_player_ship",
+"comment":"Adds an arrow to the ship identified with `ship_id` pointing towards the entity identified with `entity_id`, and returns the identifier of the arrow. `color` specifies the arrow's color. The arrow is automatically removed when the target entity is destroyed.",
+"parameters": [
+{
+"name":"ship_id",
+"type":"EntityId",
+},
+{
+"name":"target_id",
+"type":"EntityId",
+},
+{
+"name":"color",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"remove_arrow_from_player_ship",
+"comment":"Removes the arrow identified by `arrow_id` from the ship identified by `ship_id`.",
+"parameters": [
+{
+"name":"ship_id",
+"type":"EntityId",
+},
+{
+"name":"arrow_id",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"make_player_ship_transparent",
+"comment":"Makes the player ship transparent for `transparency_duration` game ticks.",
+"parameters": [
+{
+"name":"ship_id",
+"type":"EntityId",
+},
+{
+"name":"transparency_duration",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int32",
+},
+],
+"func_name":"get_entity_count",
+"comment":"Returns the number of entities of type `type` that are alive.",
+"parameters": [
+{
+"name":"type",
+"type":"Int32",
+"enum": "EntityType",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"play_ambient_sound",
+"comment":"Plays the sound described at `sound_path` at the index `index`.",
+"parameters": [
+{
+"name":"sound_path",
+"type":"String",
+},
+{
+"name":"index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"play_sound",
+"comment":"Plays the sound described at `sound_path` at the in-game location of `x`,`y`.",
+"parameters": [
+{
+"name":"sound_path",
+"type":"String",
+},
+{
+"name":"index",
+"type":"Int32",
+},
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"create_explosion",
+"comment":"Creates an explosion of particles at the location `x`,`y`. `scale` should be in the range ]0, 10], and it describes how large the explosion will be, with 1 being an average explosion. `particle_count` is a number in the range [1, 100].",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"color",
+"type":"Int32",
+},
+{
+"name":"scale",
+"type":"FixedPoint",
+},
+{
+"name":"particle_count",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_asteroid",
+"comment":"Creates a new Asteroid at the location `x`,`y` and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_baf",
+"comment":"Creates a new BAF at the location `x`,`y`, and returns its entityId. `angle` specifies the angle at which the BAF will move. `speed` specifies the maximum speed it will reach. `lifetime` indicates the number of game ticks after wich the BAF is destroyed the next time it hits a wall. Specify a negative `lifetime` to create a BAF that lives forever.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"speed",
+"type":"FixedPoint",
+},
+{
+"name":"lifetime",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_bomb",
+"comment":"Creates a new Bomb at the location `x`,`y`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"type",
+"type":"Int32",
+"enum": "BombType",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_customizable_entity",
+"comment":"Creates a new customizable entity at the location `x`,`y`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_inertiac",
+"comment":"Creates a new Inertiac at the location `x`,`y`, and returns its entityId. The inertiac will accelerate according to `acceleration`. It spawns with a random velocity in a direction specified by `angle`.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"acceleration",
+"type":"FixedPoint",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_mothership",
+"comment":"Creates a new Mothership at the location `x`,`y`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"type",
+"type":"Int32",
+"enum": "MothershipType",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_player_ship",
+"comment":"Creates a new Player Ship at the location `x`,`y` for the player identified by `player_index`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"player_index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_rolling_cube",
+"comment":"Creates a new Rolling Cube at the location `x`,`y`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_rolling_sphere",
+"comment":"Creates a new Rolling Sphere at the location `x`,`y`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"speed",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_ufo",
+"comment":"Creates a new UFO at the location `x`,`y` moving horizontaly at the speed of `dx`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"dx",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"entity_get_position",
+"comment":"Returns the position of the entity identified by `id`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Boolean",
+},
+],
+"func_name":"entity_get_is_alive",
+"comment":"Returns whether the entity identified by `id` is alive or not.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Boolean",
+},
+],
+"func_name":"entity_get_is_started_to_be_destroyed",
+"comment":"Returns whether the entity identified by `id` is in the process of being destroyed.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"entity_set_position",
+"comment":"Sets the position of the entity identified by `id` to `x`,`y`",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"entity_set_radius",
+"comment":"Sets the radius of the entity identified by `id`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"radius",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"entity_set_update_callback",
+"comment":"Sets a callback that will be called at every tick as long as the entity identified by `id` is alive. Remove the callback by passing a nil `callback`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"callback",
+"type":"Callback",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"entity_destroy",
+"comment":"Destroys the entity identified by `id`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_mesh",
+"comment":"Sets the mesh of the customisable entity identified by `id` to the mesh described in the file `file_path` at the index `index`. `index` starts at 0.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"file_path",
+"type":"String",
+},
+{
+"name":"index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_mesh_color",
+"comment":"Sets the color multiplier for the mesh of the customisable entity identified by `id`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"color",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_string",
+"comment":"Sets the string to be displayed as part of the mesh of the customisable entity identified by `id`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"text",
+"type":"String",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_mesh_z",
+"comment":"Sets the height of the mesh of the customisable entity identified by `id`. A `z` greater to 0 makes the mesh be closer, while a `z` less than 0 makes the mesh be further away.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"z",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_mesh_scale",
+"comment":"Sets the scale of the mesh of the customisable entity identified by `id`. A `scale` less than 1 makes the mesh appear smaller, while a `scale` greater than 1 makes the mesh appear larger.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"scale",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_mesh_angle",
+"comment":"Sets the rotation angle of the mesh of the customisable entity identified by `id`. The rotation is applied along the axis defined by `x_axis`,`y_axis`,`z_axis`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"x_axis",
+"type":"FixedPoint",
+},
+{
+"name":"y_axis",
+"type":"FixedPoint",
+},
+{
+"name":"z_axis",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_player_collision_callback",
+"comment":"Sets the callback for when the customisable entity identified by `id` collides with a player.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"collision_callback",
+"type":"Callback",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_start_spawning",
+"comment":"Makes the customisable entity identified by `id` spawn for a duration of `spawning_duration` game ticks.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"spawning_duration",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_start_exploding",
+"comment":"Makes the customisable entity identified by `id` explode for a duration of `explosion_duration` game ticks. After the explosion, the entity is destroyed.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"explosion_duration",
+"type":"Int32",
+},
+],
+},
+],
+},
+{
+"name":"fmath",
+"enums": [
+],
+"functions": [
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"random_fixedpoint",
+"comment":"Returns a random fixedpoint value in the range [`min`, `max`]. `max` must be greater or equal to `min`.",
+"parameters": [
+{
+"name":"min",
+"type":"FixedPoint",
+},
+{
+"name":"max",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int64",
+},
+],
+"func_name":"random_int",
+"comment":"Returns an integer in the range [`min`, `max`]. `max` must be greater or equal to `min`.",
+"parameters": [
+{
+"name":"min",
+"type":"Int64",
+},
+{
+"name":"max",
+"type":"Int64",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"sqrt",
+"comment":"Returns the square root of `x`. `x` must be greater or equal to 0.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"from_fraction",
+"comment":"Returns the fixedpoint value representing the fraction `numerator`/`denominator`.",
+"parameters": [
+{
+"name":"numerator",
+"type":"Int32",
+},
+{
+"name":"denominator",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int64",
+},
+],
+"func_name":"to_int",
+"comment":"Returns the integral part of the `value`.",
+"parameters": [
+{
+"name":"value",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"to_fixedpoint",
+"comment":"Returns a fixedpoint value with the integral part of `value`, and no fractional part.",
+"parameters": [
+{
+"name":"value",
+"type":"Int64",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"sincos",
+"comment":"Returns the sinus and cosinus of `angle`. `angle` is in radian.",
+"parameters": [
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"tau",
+"comment":"Returns τ (aka 2π).",
+"parameters": [
+],
+},
+],
+},
+]
