@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+# This file generates the prebuilt binaries.
+
 import os
 import platform
 import shutil
