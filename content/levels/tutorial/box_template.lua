@@ -34,7 +34,7 @@ function box.new(x, y, outer_mesh_info, inner_mesh_info, callback)
     pewpew.customizable_entity_start_exploding(self.handle, 30)
     -- Notify about the collision
     if callback ~= nil then
-      callback(player_id, entity_id)
+      callback(player_id, ship_id)
       callback = nil
     end
   end

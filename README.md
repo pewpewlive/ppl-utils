@@ -13,7 +13,7 @@ It allows anyone to create custom levels for PewPew Live.
     * On macOS: open a terminal. Drag and drop the `ppl-utils` binary into it. Press enter.
     * On linux: execute `ppl-utils`.
 1. The binary creates a web server that hosts PewPew Live on the port 9000. Point your browser to
-  [localhost:9000/pewpew.html] to launch PewPew Live.
+  http://localhost:9000/pewpew.html to launch PewPew Live.
 1. When launched, PewPew Live lists the level found in the `content/levels/` directory.
   Play a level by clicking on it.
 1. Change code in `content/levels/` and see how it affects the existing levels.
@@ -39,7 +39,6 @@ The only requirement is to have golang 1.14 installed on your system.
 After obtaining the source code, build with `go build`.
 
 [Download a prebuilt archive]: https://github.com/jyaif/ppl-utils/tags
-[http://localhost:9000/pewpew.html]: http://localhost:9000/pewpew.html
 [LuaRocks's style guide]: https://github.com/luarocks/lua-style-guide
 [API documentation]: https://jyaif.github.io/ppl-utils
 [Discord chat room]: https://discord.gg/YvGd2pF
