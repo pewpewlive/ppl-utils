@@ -875,7 +875,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_player_collision_callback",
-"comment":"Sets the callback for when the customisable entity identified by `id` collides with a player.",
+"comment":"Sets the callback for when the customisable entity identified by `id` collides with a player's ship. The callback gets called with the player_id and ship_id that was involved in the collision.",
 "parameters": [
 {
 "name":"entity_id",
