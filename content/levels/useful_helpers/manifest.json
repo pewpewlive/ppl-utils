@@ -1,0 +1,6 @@
+{
+  "name":"Useful helpers",
+  "descriptions":["Useful for powerups, graphics, sound!"],
+  "entry_point":"level.lua",
+  "rank_thresholds_1p":{"bronze":0, "silver":0, "gold":0}
+}

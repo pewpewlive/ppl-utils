@@ -30,7 +30,8 @@ func list(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "{\n")
 		fmt.Fprintf(w, "name = \"%s\",\n", level.name)
 		fmt.Fprintf(w, "author = \"%s\",\n", level.author)
-		fmt.Fprintf(w, "level_id = \"/dev/%s\"\n", level.directory)
+		fmt.Fprintf(w, "level_id = \"/dev/%s\",\n", level.directory)
+		fmt.Fprintf(w, "experimental = true\n")
 		fmt.Fprint(w, "},\n")
 	}
 	fmt.Fprint(w, "}\n")

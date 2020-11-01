@@ -200,6 +200,10 @@ var documentation = [
 "type":"FixedPoint",
 },
 {
+"name":"camera_rotation_x_axis",
+"type":"FixedPoint",
+},
+{
 "name":"move_joystick_color",
 "type":"Int32",
 },
@@ -630,6 +634,25 @@ var documentation = [
 "type":"EntityId",
 },
 ],
+"func_name":"new_wary",
+"comment":"Creates a new Wary at the location `x`,`y`.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
 "func_name":"new_ufo",
 "comment":"Creates a new UFO at the location `x`,`y` moving horizontaly at the speed of `dx`, and returns its entityId.",
 "parameters": [
@@ -763,7 +786,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_mesh",
-"comment":"Sets the mesh of the customisable entity identified by `id` to the mesh described in the file `file_path` at the index `index`. `index` starts at 0.",
+"comment":"Sets the mesh of the customisable entity identified by `id` to the mesh described in the file `file_path` at the index `index`. `index` starts at 0. If `file_path` is an empty string, the mesh is removed.",
 "parameters": [
 {
 "name":"entity_id",
@@ -775,6 +798,30 @@ var documentation = [
 },
 {
 "name":"index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_flipping_meshes",
+"comment":"Similar to `customizable_entity_set_mesh`, but sets two meshes that will be used in alternation. By specifying 2 separate meshes, 60 fps animations can be achieved.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"file_path",
+"type":"String",
+},
+{
+"name":"index_0",
+"type":"Int32",
+},
+{
+"name":"index_1",
 "type":"Int32",
 },
 ],
