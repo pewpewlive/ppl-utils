@@ -999,6 +999,22 @@ var documentation = [
 {
 "return_types": [
 ],
+"func_name":"customizable_entity_set_weapon_collision_callback",
+"comment":"Sets the callback for when the customisable entity identified by `id` collides with a player's weapon. The callback gets called with the player_id of the player that triggered the weapon, and the type of the weapon. The callback *must* return a boolean saying whether the entity reacts to the weapon. In the case of a bullet, this boolean determines whether the bullet should be destroyed.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"weapon_collision_callback",
+"type":"Callback",
+},
+],
+},
+{
+"return_types": [
+],
 "func_name":"customizable_entity_start_spawning",
 "comment":"Makes the customisable entity identified by `id` spawn for a duration of `spawning_duration` game ticks.",
 "parameters": [
