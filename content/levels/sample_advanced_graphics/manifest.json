@@ -1,0 +1,5 @@
+{
+  "name":"Sample: Advanced graphics",
+  "descriptions":["Demonstrates how to create graphics with code."],
+  "entry_point":"level.lua"
+}

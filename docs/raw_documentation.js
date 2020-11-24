@@ -10,6 +10,7 @@ var documentation = [
 "BAF",
 "MOTHERSHIP",
 "MOTHERSHIP_BULLET",
+"WARY",
 ],
 },
 {
@@ -55,6 +56,15 @@ var documentation = [
 "REPULSIVE",
 "ATOMIZE",
 "SMALL_ATOMIZE",
+],
+},
+{
+"name":"WeaponType",
+"values": [
+"BULLET",
+"FREEZE_EXPLOSION",
+"REPULSIVE_EXPLOSION",
+"ATOMIZE_EXPLOSION",
 ],
 },
 ],
@@ -177,7 +187,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"configure_player",
-"comment":"Configures the player at the specified `index`. `index` must in the range [0, get_number_of_players() - 1].",
+"comment":"Configures the player at the specified `index`. `index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis.",
 "parameters": [
 {
 "name":"player_index",
@@ -269,6 +279,22 @@ var documentation = [
 "type":"Int32",
 },
 ],
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"add_damage_to_player_ship",
+"comment":"Reduces the amount of shield of the player that owns the ship by `damage` points. If the player receives damage while having 0 shields left, the player loses.",
+"parameters": [
+{
+"name":"ship_id",
+"type":"EntityId",
+},
+{
+"name":"damage",
+"type":"Int32",
 },
 ],
 },
@@ -387,7 +413,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"create_explosion",
-"comment":"Creates an explosion of particles at the location `x`,`y`. `scale` should be in the range ]0, 10], and it describes how large the explosion will be, with 1 being an average explosion. `particle_count` is a number in the range [1, 100].",
+"comment":"Creates an explosion of particles at the location `x`,`y`. `color` specifies the color of the explosion. `scale` describes how large the explosion will be. It should be in the range ]0, 10], with 1 being an average explosion. `particle_count` specifies the number of particles that make up the explosion. It must be in the range [1, 100].",
 "parameters": [
 {
 "name":"x",
@@ -774,11 +800,27 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"entity_destroy",
-"comment":"Destroys the entity identified by `id`.",
+"comment":"Makes the entity identified by `id` immediately disappear forever.",
 "parameters": [
 {
 "name":"entity_id",
 "type":"EntityId",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_set_position_interpolation",
+"comment":"Sets wether the position of the mesh wil be interpolated when rendering. In general, this should be set to true if the entity will be moving smoothly.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"enable",
+"type":"Boolean",
 },
 ],
 },
@@ -921,6 +963,26 @@ var documentation = [
 {
 "return_types": [
 ],
+"func_name":"customizable_entity_configure_wall_collision",
+"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"collide_with_walls",
+"type":"Boolean",
+},
+{
+"name":"collision_callback",
+"type":"Callback",
+},
+],
+},
+{
+"return_types": [
+],
 "func_name":"customizable_entity_set_player_collision_callback",
 "comment":"Sets the callback for when the customisable entity identified by `id` collides with a player's ship. The callback gets called with the player_id and ship_id that was involved in the collision.",
 "parameters": [
@@ -973,6 +1035,17 @@ var documentation = [
 "enums": [
 ],
 "functions": [
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"max_fixedpoint",
+"comment":"Returns the maximum value a fixedpoint integer can take.",
+"parameters": [
+],
+},
 {
 "return_types": [
 {
@@ -1066,6 +1139,21 @@ var documentation = [
 "type":"FixedPoint",
 },
 ],
+"func_name":"abs_fixedpoint",
+"comment":"Returns the absolute value.",
+"parameters": [
+{
+"name":"value",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
 "func_name":"to_fixedpoint",
 "comment":"Returns a fixedpoint value with the integral part of `value`, and no fractional part.",
 "parameters": [
@@ -1089,6 +1177,25 @@ var documentation = [
 "parameters": [
 {
 "name":"angle",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"FixedPoint",
+},
+],
+"func_name":"atan2",
+"comment":"Returns the principal value of the arc tangent of y/x. Returns a value in the range [0, 2π[.",
+"parameters": [
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"x",
 "type":"FixedPoint",
 },
 ],

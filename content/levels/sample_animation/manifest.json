@@ -1,0 +1,5 @@
+{
+  "name":"Sample: Animation",
+  "descriptions":["The color and position of a vertex is animated."],
+  "entry_point":"level.lua"
+}

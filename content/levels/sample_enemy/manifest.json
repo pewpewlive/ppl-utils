@@ -1,0 +1,5 @@
+{
+  "name":"Sample: Enemy",
+  "descriptions":["Enemy moves and shoots bullets."],
+  "entry_point":"level.lua"
+}
