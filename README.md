@@ -6,7 +6,7 @@ It allows anyone to create custom levels for PewPew Live.
 
 ## Requirements
 
-You need a PC with Windows, macOS, or Linux. You currently can't use a phone or tablet.
+You need a computer with Windows, macOS, or Linux. You currently can't use a phone or tablet.
 
 ## Getting started
 
