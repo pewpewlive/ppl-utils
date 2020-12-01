@@ -4,6 +4,10 @@ This repository hosts the code source and documentation for the PewPew Live
 development environment.
 It allows anyone to create custom levels for PewPew Live.
 
+## Requirements
+
+You need a PC with Windows, macOS, or Linux. You currently can't use a phone or tablet.
+
 ## Getting started
 
 1. [Download a prebuilt archive] for your platform.
