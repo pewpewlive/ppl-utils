@@ -6,10 +6,13 @@ var documentation = [
 "name":"EntityType",
 "values": [
 "ASTEROID",
-"INERTIAC",
 "BAF",
+"INERTIAC",
 "MOTHERSHIP",
 "MOTHERSHIP_BULLET",
+"ROLLING_CUBE",
+"ROLLING_SPHERE",
+"UFO",
 "WARY",
 ],
 },
@@ -84,8 +87,16 @@ var documentation = [
 {
 "return_types": [
 ],
+"func_name":"print_debug_info",
+"comment":"Prints debug info: the number of entities created and the amount of memory used by the script.",
+"parameters": [
+],
+},
+{
+"return_types": [
+],
 "func_name":"set_level_size",
-"comment":"Sets the level's size. Implicetely adds walls to make sure that entities can not go outside of the level's boudaries. `width` and `height` are clamped to the range ]0fx, 6000fx]. If this function is not called, the level size is (10fx, 10fx), which is uselessly small for most cases.",
+"comment":"Sets the level's size. Implicetely adds walls to make sure that entities can not go outside of the level's boundaries. `width` and `height` are clamped to the range ]0fx, 6000fx]. If this function is not called, the level size is (10fx, 10fx), which is uselessly small for most cases.",
 "parameters": [
 {
 "name":"width",
@@ -124,7 +135,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"increase_score_of_player",
-"comment":"Increases the score of the player at the specified `index` by an amount of `delta`. `index` must in the range [0, get_number_of_players() - 1]. Note that `delta` can be negative.",
+"comment":"Increases the score of the player at the specified `player_index` by an amount of `delta`. `player_index` must in the range [0, get_number_of_players() - 1]. Note that `delta` can be negative.",
 "parameters": [
 {
 "name":"player_index",
@@ -175,7 +186,7 @@ var documentation = [
 },
 ],
 "func_name":"get_score_of_player",
-"comment":"Returns the score of the player at the specified `index`. `index` must in the range [0, get_number_of_players() - 1].",
+"comment":"Returns the score of the player at the specified `player_index`. `player_index` must in the range [0, get_number_of_players() - 1].",
 "parameters": [
 {
 "name":"player_index",
@@ -187,7 +198,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"configure_player",
-"comment":"Configures the player at the specified `index`. `index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis.",
+"comment":"Configures the player at the specified `player_index`. `player_index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis.",
 "parameters": [
 {
 "name":"player_index",
@@ -254,7 +265,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"configure_player_ship_weapon",
-"comment":"Configures the weapon of the ship identified with `ship_id` using `configuration`. `frequency` determines the frequency of the shots. `cannon` determines the type of cannon. `duration` determines the number of game ticks during which the weapon will be available. Once the duration expires, the weapon reverts to its permanent configuration. If `duration` is omited, the weapon will be permanently set to this configuration. If `frequency` or `cannon` is omited, the ship is configured to not have any weapon.",
+"comment":"Configures the weapon of the ship identified with `ship_id` using `configuration`. `frequency` determines the frequency of the shots. `cannon` determines the type of cannon. `duration` determines the number of game ticks during which the weapon will be available. Once the duration expires, the weapon reverts to its permanent configuration. If `duration` is omitted, the weapon will be permanently set to this configuration. If `frequency` or `cannon` is omitted, the ship is configured to not have any weapon.",
 "parameters": [
 {
 "name":"ship_id",
@@ -463,7 +474,7 @@ var documentation = [
 },
 ],
 "func_name":"new_baf",
-"comment":"Creates a new BAF at the location `x`,`y`, and returns its entityId. `angle` specifies the angle at which the BAF will move. `speed` specifies the maximum speed it will reach. `lifetime` indicates the number of game ticks after wich the BAF is destroyed the next time it hits a wall. Specify a negative `lifetime` to create a BAF that lives forever.",
+"comment":"Creates a new BAF at the location `x`,`y`, and returns its entityId. `angle` specifies the angle at which the BAF will move. `speed` specifies the maximum speed it will reach. `lifetime` indicates the number of game ticks after which the BAF is destroyed the next time it hits a wall. Specify a negative `lifetime` to create a BAF that lives forever.",
 "parameters": [
 {
 "name":"x",
@@ -680,7 +691,7 @@ var documentation = [
 },
 ],
 "func_name":"new_ufo",
-"comment":"Creates a new UFO at the location `x`,`y` moving horizontaly at the speed of `dx`, and returns its entityId.",
+"comment":"Creates a new UFO at the location `x`,`y` moving horizontally at the speed of `dx`, and returns its entityId.",
 "parameters": [
 {
 "name":"x",
@@ -736,7 +747,7 @@ var documentation = [
 },
 ],
 "func_name":"entity_get_is_started_to_be_destroyed",
-"comment":"Returns whether the entity identified by `id` is in the process of being destroyed.",
+"comment":"Returns whether the entity identified by `id` is in the process of being destroyed. Returns false if the entity does not exist.",
 "parameters": [
 {
 "name":"entity_id",
@@ -768,7 +779,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"entity_set_radius",
-"comment":"Sets the radius of the entity identified by `id`.",
+"comment":"Sets the radius of the entity identified by `id`. To give you a sense of scale, motherships have a radius of 28fx.",
 "parameters": [
 {
 "name":"entity_id",
@@ -812,7 +823,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_position_interpolation",
-"comment":"Sets wether the position of the mesh wil be interpolated when rendering. In general, this should be set to true if the entity will be moving smoothly.",
+"comment":"Sets whether the position of the mesh wil be interpolated when rendering. In general, this should be set to true if the entity will be moving smoothly.",
 "parameters": [
 {
 "name":"entity_id",
@@ -828,7 +839,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_mesh",
-"comment":"Sets the mesh of the customisable entity identified by `id` to the mesh described in the file `file_path` at the index `index`. `index` starts at 0. If `file_path` is an empty string, the mesh is removed.",
+"comment":"Sets the mesh of the customizable entity identified by `id` to the mesh described in the file `file_path` at the index `index`. `index` starts at 0. If `file_path` is an empty string, the mesh is removed.",
 "parameters": [
 {
 "name":"entity_id",
@@ -872,7 +883,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_mesh_color",
-"comment":"Sets the color multiplier for the mesh of the customisable entity identified by `id`.",
+"comment":"Sets the color multiplier for the mesh of the customizable entity identified by `id`.",
 "parameters": [
 {
 "name":"entity_id",
@@ -888,7 +899,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_string",
-"comment":"Sets the string to be displayed as part of the mesh of the customisable entity identified by `id`.",
+"comment":"Sets the string to be displayed as part of the mesh of the customizable entity identified by `id`.",
 "parameters": [
 {
 "name":"entity_id",
@@ -904,7 +915,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_mesh_z",
-"comment":"Sets the height of the mesh of the customisable entity identified by `id`. A `z` greater to 0 makes the mesh be closer, while a `z` less than 0 makes the mesh be further away.",
+"comment":"Sets the height of the mesh of the customizable entity identified by `id`. A `z` greater to 0 makes the mesh be closer, while a `z` less than 0 makes the mesh be further away.",
 "parameters": [
 {
 "name":"entity_id",
@@ -920,7 +931,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_mesh_scale",
-"comment":"Sets the scale of the mesh of the customisable entity identified by `id`. A `scale` less than 1 makes the mesh appear smaller, while a `scale` greater than 1 makes the mesh appear larger.",
+"comment":"Sets the scale of the mesh of the customizable entity identified by `id`. A `scale` less than 1 makes the mesh appear smaller, while a `scale` greater than 1 makes the mesh appear larger.",
 "parameters": [
 {
 "name":"entity_id",
@@ -936,7 +947,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_mesh_angle",
-"comment":"Sets the rotation angle of the mesh of the customisable entity identified by `id`. The rotation is applied along the axis defined by `x_axis`,`y_axis`,`z_axis`.",
+"comment":"Sets the rotation angle of the mesh of the customizable entity identified by `id`. The rotation is applied along the axis defined by `x_axis`,`y_axis`,`z_axis`.",
 "parameters": [
 {
 "name":"entity_id",
@@ -984,7 +995,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_player_collision_callback",
-"comment":"Sets the callback for when the customisable entity identified by `id` collides with a player's ship. The callback gets called with the player_id and ship_id that was involved in the collision.",
+"comment":"Sets the callback for when the customizable entity identified by `id` collides with a player's ship. The callback gets called with the player_index and ship_id that was involved in the collision. Don't forget to set a radius on the customizable entity, otherwise no collisions will be detected.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1000,7 +1011,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_weapon_collision_callback",
-"comment":"Sets the callback for when the customisable entity identified by `id` collides with a player's weapon. The callback gets called with the player_id of the player that triggered the weapon, and the type of the weapon. The callback *must* return a boolean saying whether the entity reacts to the weapon. In the case of a bullet, this boolean determines whether the bullet should be destroyed.",
+"comment":"Sets the callback for when the customizable entity identified by `id` collides with a player's weapon. The callback gets called with the player_index of the player that triggered the weapon, and the type of the weapon. The callback *must* return a boolean saying whether the entity reacts to the weapon. In the case of a bullet, this boolean determines whether the bullet should be destroyed.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1016,7 +1027,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_start_spawning",
-"comment":"Makes the customisable entity identified by `id` spawn for a duration of `spawning_duration` game ticks.",
+"comment":"Makes the customizable entity identified by `id` spawn for a duration of `spawning_duration` game ticks.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1032,7 +1043,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_start_exploding",
-"comment":"Makes the customisable entity identified by `id` explode for a duration of `explosion_duration` game ticks. After the explosion, the entity is destroyed.",
+"comment":"Makes the customizable entity identified by `id` explode for a duration of `explosion_duration` game ticks. After the explosion, the entity is destroyed.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1122,7 +1133,7 @@ var documentation = [
 },
 ],
 "func_name":"from_fraction",
-"comment":"Returns the fixedpoint value representing the fraction `numerator`/`denominator`.",
+"comment":"Returns the fixedpoint value representing the fraction `numerator`/`denominator`. `denominator` must not be equal to zero.",
 "parameters": [
 {
 "name":"numerator",

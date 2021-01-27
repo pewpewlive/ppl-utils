@@ -7,6 +7,9 @@ pewpew.set_level_size(width, height)
 local background = pewpew.new_customizable_entity(0fx, 0fx)
 pewpew.customizable_entity_set_mesh(background, "/dynamic/rectangles_graphic.lua", 0)
 
+local dots_background = pewpew.new_customizable_entity(0fx, 0fx)
+pewpew.customizable_entity_set_mesh(dots_background, "/dynamic/random_dots.lua", 0)
+
 -- Configure the player, with 2 shields.
 pewpew.configure_player(0, {shield = 2})
 
