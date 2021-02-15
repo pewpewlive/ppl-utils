@@ -1,5 +1,0 @@
-{
-  "name":"Sample: Simple level",
-  "descriptions":["Simple example that does next to nothing."],
-  "entry_point":"level.lua"
-}

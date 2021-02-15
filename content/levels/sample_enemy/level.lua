@@ -41,9 +41,9 @@ function new_enemy_bullet(x, y, angle)
     pewpew.customizable_entity_start_exploding(id, 10)
   end)
   -- Make the bullet collide with player ships: add 3 damage to the ship, and destroy the bullet.
-  pewpew.customizable_entity_set_player_collision_callback(id, function(player_id, ship_id)
+  pewpew.customizable_entity_set_player_collision_callback(id, function(entity_id, player_id, ship_id)
     pewpew.add_damage_to_player_ship(ship_id, 3)
-    pewpew.customizable_entity_start_exploding(id, 10)
+    pewpew.customizable_entity_start_exploding(entity_id, 10)
   end)
 end
 

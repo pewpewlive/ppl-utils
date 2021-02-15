@@ -26,12 +26,12 @@ function box.new(x, y, outer_mesh_info, inner_mesh_info, callback)
   self.inner_mesh_angle = 0fx
 
 
-  local function collision_callback(player_id, ship_id)
+  local function collision_callback(entity_id, player_id, ship_id)
     -- Remove the update callback to stop the rotation of the inner_mesh.
-    pewpew.entity_set_update_callback(self.handle, nil)
+    pewpew.entity_set_update_callback(entity_id, nil)
     -- Start the explosion
     pewpew.customizable_entity_start_exploding(self.inner_mesh_handle, 40)
-    pewpew.customizable_entity_start_exploding(self.handle, 30)
+    pewpew.customizable_entity_start_exploding(entity_id, 30)
     -- Notify about the collision
     if callback ~= nil then
       callback(player_id, ship_id)

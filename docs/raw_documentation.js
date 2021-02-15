@@ -795,7 +795,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"entity_set_update_callback",
-"comment":"Sets a callback that will be called at every tick as long as the entity identified by `id` is alive. Remove the callback by passing a nil `callback`.",
+"comment":"Sets a callback that will be called at every tick as long as the entity identified by `id` is alive. Remove the callback by passing a nil `callback`. The callbacks gets the entity ID passed as a parameter.",
 "parameters": [
 {
 "name":"entity_id",
@@ -974,8 +974,24 @@ var documentation = [
 {
 "return_types": [
 ],
+"func_name":"customizable_entity_set_visibility_radius",
+"comment":"Sets the radius defining the visibility of the entity. This allows the game to know when an entity is actually visible, which in turns allows to massively optimize the rendering. Use the smallest value possible. If not set, the rendering radius is an unspecified large number that effectively makes the entity always be rendered, even if not visible.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"radius",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
 "func_name":"customizable_entity_configure_wall_collision",
-"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected.",
+"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected. The callback receives the entity id as the first parameter.",
 "parameters": [
 {
 "name":"entity_id",
