@@ -110,6 +110,45 @@ var documentation = [
 },
 {
 "return_types": [
+{
+"type":"Int32",
+},
+],
+"func_name":"add_wall",
+"comment":"Adds a wall to the level from (`start_x`,`start_y`) to (`end_x`,`end_y`), and returns its wall ID. A maximum of 200 walls can be added to a level.",
+"parameters": [
+{
+"name":"start_x",
+"type":"FixedPoint",
+},
+{
+"name":"start_y",
+"type":"FixedPoint",
+},
+{
+"name":"end_x",
+"type":"FixedPoint",
+},
+{
+"name":"end_y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"remove_wall",
+"comment":"Remove the wall with the given `wall_id`.",
+"parameters": [
+{
+"name":"wall_id",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
 ],
 "func_name":"add_update_callback",
 "comment":"Adds a callback that will be updated at each game tick.",
@@ -795,7 +834,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"entity_set_update_callback",
-"comment":"Sets a callback that will be called at every tick as long as the entity identified by `id` is alive. Remove the callback by passing a nil `callback`. The callbacks gets the entity ID passed as a parameter.",
+"comment":"Sets a callback that will be called at every tick as long as the entity identified by `id` is alive. Remove the callback by passing a nil `callback`. The callbacks gets called with the entity ID.",
 "parameters": [
 {
 "name":"entity_id",
@@ -991,7 +1030,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_configure_wall_collision",
-"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected. The callback receives the entity id as the first parameter.",
+"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected. The callback gets called with the entity id of the entity withthe callback.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1011,7 +1050,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_player_collision_callback",
-"comment":"Sets the callback for when the customizable entity identified by `id` collides with a player's ship. The callback gets called with the player_index and ship_id that was involved in the collision. Don't forget to set a radius on the customizable entity, otherwise no collisions will be detected.",
+"comment":"Sets the callback for when the customizable entity identified by `id` collides with a player's ship. The callback gets called with the entity id of the entity with the callback, and the player_index and ship_id that were involved in the collision. Don't forget to set a radius on the customizable entity, otherwise no collisions will be detected.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1027,7 +1066,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_set_weapon_collision_callback",
-"comment":"Sets the callback for when the customizable entity identified by `id` collides with a player's weapon. The callback gets called with the player_index of the player that triggered the weapon, and the type of the weapon. The callback *must* return a boolean saying whether the entity reacts to the weapon. In the case of a bullet, this boolean determines whether the bullet should be destroyed.",
+"comment":"Sets the callback for when the customizable entity identified by `id` collides with a player's weapon. The callback gets called with the entity_id of the entity on which the callback is set, the player_index of the player that triggered the weapon, and the type of the weapon. The callback *must* return a boolean saying whether the entity reacts to the weapon. In the case of a bullet, this boolean determines whether the bullet should be destroyed.",
 "parameters": [
 {
 "name":"entity_id",
