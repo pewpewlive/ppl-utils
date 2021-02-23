@@ -1,0 +1,5 @@
+{
+  "name":"Sample: Walls",
+  "descriptions":["This level contains 2 extra walls."],
+  "entry_point":"level.lua"
+}
