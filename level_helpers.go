@@ -14,18 +14,23 @@ import (
 	"time"
 )
 
-// LevelOnDisk contains the info necessary to identify a level.
-type LevelOnDisk struct {
-	name      string
-	author    string
-	directory string
+// LevelJSON is used to write the list of levels
+type LevelJSON struct {
+	Name            string `json:"name"`
+	Author          string `json:"author"`
+	LevelID         string `json:"level_id"`
+	Date            string `json:"date"`
+	PublishState    int    `json:"publish_state"`
+	Experimental    bool   `json:"experimental"`
+	LeaderboardKind int    `json:"leaderboard_kind"`
 }
 
-// LevelJSON stores the JSON of a level.
-type LevelJSON struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	EntryPoint  string `json:"entry_point"`
+// LevelManifest stores the manifest of a level.
+type LevelManifest struct {
+	Name                string `json:"name"`
+	Description         string `json:"description"`
+	EntryPoint          string `json:"entry_point"`
+	HasScoreLeaderboard bool   `json:"has_score_leaderboard"`
 }
 
 // GetDir returns the path to the content directory.
@@ -41,8 +46,8 @@ func GetDir() string {
 
 // ListLevels lists the levels.
 // A level is a subdirectory that contains a properly formatted json file.
-func ListLevels() []LevelOnDisk {
-	levels := []LevelOnDisk{}
+func ListLevels() []LevelJSON {
+	levels := []LevelJSON{}
 
 	filepath.Walk(GetDir(),
 		func(path string, info os.FileInfo, err error) error {
@@ -57,17 +62,25 @@ func ListLevels() []LevelOnDisk {
 
 			jsonContent, err := ioutil.ReadFile(path)
 
-			levelJSON := &LevelJSON{}
-			err = json.Unmarshal(jsonContent, levelJSON)
+			levelManifest := &LevelManifest{}
+			err = json.Unmarshal(jsonContent, levelManifest)
 			if err != nil {
 				return err
 			}
 
-			level := new(LevelOnDisk)
+			level := new(LevelJSON)
 			directory = strings.ReplaceAll(directory, string(os.PathSeparator), "/")
-			level.directory = directory
-			level.name = levelJSON.Name
-			level.author = "TBD"
+			level.Name = levelManifest.Name
+			level.Author = "TBD"
+			level.LevelID = directory
+			level.Date = "---"
+			level.Experimental = true
+			level.PublishState = 0
+			if levelManifest.HasScoreLeaderboard {
+				level.LeaderboardKind = 1
+			} else {
+				level.LeaderboardKind = 0
+			}
 			levels = append(levels, *level)
 			return nil
 		})

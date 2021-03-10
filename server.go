@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -24,19 +25,11 @@ func cacheControlWrapper(h http.Handler) http.Handler {
 func list(w http.ResponseWriter, r *http.Request) {
 	setHeaders(w, r)
 	levels := ListLevels()
-	fmt.Fprint(w, "data = {\n")
-	fmt.Fprint(w, "levels = {\n")
-	for _, level := range levels {
-		fmt.Fprint(w, "{\n")
-		fmt.Fprintf(w, "name = \"%s\",\n", level.name)
-		fmt.Fprintf(w, "author = \"%s\",\n", level.author)
-		fmt.Fprintf(w, "level_id = \"/dev/%s\",\n", level.directory)
-		fmt.Fprintf(w, "publish_state = 0,\n")
-		fmt.Fprintf(w, "experimental = true\n")
-		fmt.Fprint(w, "},\n")
+	jsonStr, marshalingError := json.Marshal(levels)
+	if marshalingError != nil {
+		return
 	}
-	fmt.Fprint(w, "}\n")
-	fmt.Fprint(w, "}")
+	fmt.Fprintf(w, string(jsonStr))
 }
 
 func getStrippedLevelID(r *http.Request) (string, error) {
@@ -85,7 +78,7 @@ func main() {
 	fs := cacheControlWrapper(http.FileServer(http.Dir(GetDir())))
 	http.Handle("/", fs)
 
-	http.HandleFunc("/custom_levels/list", list)
+	http.HandleFunc("/custom_levels/list2", list)
 	http.HandleFunc("/custom_levels/get_level", getLevel)
 	http.HandleFunc("/custom_levels/get_level_manifest", getLevelManifest)
 

@@ -1,5 +1,6 @@
 {
   "name":"Sample: Advanced graphics",
   "descriptions":["Demonstrates how to create graphics with code."],
-  "entry_point":"level.lua"
+  "entry_point":"level.lua",
+  "has_score_leaderboard":false
 }

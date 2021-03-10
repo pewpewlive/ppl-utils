@@ -1,5 +1,7 @@
 {
   "name":"Sample: Simple level",
   "descriptions":["Simple example that does next to nothing."],
-  "entry_point":"level.lua"
+  "entry_point":"level.lua",
+  "has_score_leaderboard":true,
+  "rank_thresholds_1p":{"bronze":1000, "silver":2000, "gold":3000}
 }

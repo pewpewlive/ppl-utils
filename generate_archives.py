@@ -64,6 +64,13 @@ for config in configs:
   # Copy the other content
   shutil.copytree('content', directory_name + '/content')
 
+  # Remove all .DS_Store from the directory
+  for root, dirs, files in os.walk(directory_name):
+    for file in files:
+      if file == ".DS_Store":
+        path = os.path.join(root, file)
+        os.remove(path)
+
   # Zip the temporary directory
   shutil.make_archive(directory_name, 'zip', directory_name)
 

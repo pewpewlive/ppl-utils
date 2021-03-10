@@ -1,5 +1,5 @@
 -- Set how large the level will be.
-pewpew.set_level_size(500fx, 500fx)
+pewpew.set_level_size(1000fx, 1000fx)
 
 -- Create an entity at position (0,0) that will hold the background mesh.
 local background = pewpew.new_customizable_entity(0fx, 0fx)

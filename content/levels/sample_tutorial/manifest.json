@@ -1,5 +1,6 @@
 {
   "name":"Sample: Tutorial",
   "descriptions":["The tutorial."],
-  "entry_point":"level.lua"
+  "entry_point":"level.lua",
+  "has_score_leaderboard":false
 }
