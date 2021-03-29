@@ -25,6 +25,8 @@ You need a computer with Windows, macOS, or Linux. You currently can't use a pho
 1. Read the [wiki].
 1. Ask questions in the [Discord chat room].
 
+You can also take a look at [the code of levels] that have been released.
+
 ## Building the server
 
 If you don't want (or can't) use one of the prebuilt binaries, you can build the binaries yourself.
@@ -34,3 +36,4 @@ After obtaining the source code, build with `go build`.
 [Download a prebuilt archive]: https://github.com/jyaif/ppl-utils/tags
 [wiki]: https://github.com/jyaif/ppl-utils/wiki
 [Discord chat room]: https://discord.gg/YvGd2pF
+[the code of levels]: https://github.com/jyaif/ppl-levels/tree/master
