@@ -7,6 +7,7 @@ var documentation = [
 "values": [
 "ASTEROID",
 "BAF",
+"CROWDER",
 "INERTIAC",
 "MOTHERSHIP",
 "MOTHERSHIP_BULLET",
@@ -748,6 +749,38 @@ var documentation = [
 },
 {
 "return_types": [
+],
+"func_name":"rolling_cube_set_enable_collisions_with_walls",
+"comment":"Sets whether the rolling cube identified with `id` collides with walls. By default it does not.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"collide_with_walls",
+"type":"Boolean",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"ufo_set_enable_collisions_with_walls",
+"comment":"Sets whether the ufo identified with `id` collides with walls. By default it does not.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"collide_with_walls",
+"type":"Boolean",
+},
+],
+},
+{
+"return_types": [
 {
 "type":"FixedPoint",
 },
@@ -1030,7 +1063,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_configure_wall_collision",
-"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected. The callback gets called with the entity id of the entity withthe callback.",
+"comment":"`collide_with_walls` configures whether the entity should stop when colliding with walls. If `collision_callback` is not nil, it is called anytime a collision is detected. The callback gets called with the entity id of the entity withthe callback, and with the normal to the wall.",
 "parameters": [
 {
 "name":"entity_id",
