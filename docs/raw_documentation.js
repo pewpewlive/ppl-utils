@@ -7,7 +7,6 @@ var documentation = [
 "values": [
 "ASTEROID",
 "BAF",
-"CROWDER",
 "INERTIAC",
 "MOTHERSHIP",
 "MOTHERSHIP_BULLET",
@@ -15,6 +14,10 @@ var documentation = [
 "ROLLING_SPHERE",
 "UFO",
 "WARY",
+"CROWDER",
+"CUSTOMIZABLE_ENTITY",
+"SHIP",
+"BOMB",
 ],
 },
 {
@@ -407,6 +410,29 @@ var documentation = [
 {
 "return_types": [
 {
+"type":"List",
+},
+],
+"func_name":"get_entities_colliding_with_disk",
+"comment":"Returns the list of collidable entities (which includes all enemies) that overlap with the given disk.",
+"parameters": [
+{
+"name":"center_x",
+"type":"FixedPoint",
+},
+{
+"name":"center_y",
+"type":"FixedPoint",
+},
+{
+"name":"radius",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
 "type":"Int32",
 },
 ],
@@ -417,6 +443,21 @@ var documentation = [
 "name":"type",
 "type":"Int32",
 "enum": "EntityType",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int32",
+},
+],
+"func_name":"get_entity_type",
+"comment":"Returns the type of the given entity.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
 },
 ],
 },
@@ -665,6 +706,33 @@ var documentation = [
 "type":"EntityId",
 },
 ],
+"func_name":"new_player_bullet",
+"comment":"Creates a new bullet at the location `x`,`y` with the angle `angle` belonging to the player at the index `player_index`. Returns the entityId of the bullet.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"player_index",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
 "func_name":"new_rolling_cube",
 "comment":"Creates a new Rolling Cube at the location `x`,`y`, and returns its entityId.",
 "parameters": [
@@ -893,6 +961,44 @@ var documentation = [
 },
 {
 "return_types": [
+{
+"type":"Boolean",
+},
+],
+"func_name":"entity_react_to_weapon",
+"comment":"Makes the entity identified by `id` react to the weapon described in `weapon_description`. Returns whether the entity reacted to the weapon. The returned value is typically used to decide whether the weapon should continue to exist or not.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"weapon",
+"type":"Map",
+"map_entries": [
+{
+"name":"type",
+"type":"Int32",
+"enum": "WeaponType",
+},
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"player_index",
+"type":"Int32",
+},
+],
+},
+],
+},
+{
+"return_types": [
 ],
 "func_name":"customizable_entity_set_position_interpolation",
 "comment":"Sets whether the position of the mesh wil be interpolated when rendering. In general, this should be set to true if the entity will be moving smoothly.",
@@ -1020,6 +1126,34 @@ var documentation = [
 ],
 "func_name":"customizable_entity_set_mesh_angle",
 "comment":"Sets the rotation angle of the mesh of the customizable entity identified by `id`. The rotation is applied along the axis defined by `x_axis`,`y_axis`,`z_axis`.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"x_axis",
+"type":"FixedPoint",
+},
+{
+"name":"y_axis",
+"type":"FixedPoint",
+},
+{
+"name":"z_axis",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_add_rotation_to_mesh",
+"comment":"Adds a rotation to the mesh of the customizable entity identified by `id`. The rotation is applied along the axis defined by `x_axis`,`y_axis`,`z_axis`.",
 "parameters": [
 {
 "name":"entity_id",

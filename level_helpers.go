@@ -18,6 +18,7 @@ import (
 type LevelJSON struct {
 	Name            string `json:"name"`
 	Author          string `json:"author"`
+	AuthorAccountId string `json:"account_id"`
 	LevelID         string `json:"level_id"`
 	Date            string `json:"date"`
 	PublishState    int    `json:"publish_state"`

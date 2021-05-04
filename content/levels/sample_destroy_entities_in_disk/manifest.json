@@ -1,0 +1,6 @@
+{
+  "name":"Sample: Destroy enemies in disk",
+  "descriptions":["Destroys all enemies in center of the map once per second."],
+  "entry_point":"level.lua",
+  "has_score_leaderboard":false
+}

@@ -1,0 +1,6 @@
+{
+  "name":"Sample: Rotation",
+  "descriptions":["A triangle, rotated in different directions."],
+  "entry_point":"level.lua",
+  "has_score_leaderboard":false
+}
