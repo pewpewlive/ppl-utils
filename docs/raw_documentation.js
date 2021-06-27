@@ -410,6 +410,34 @@ var documentation = [
 {
 "return_types": [
 {
+"type":"FixedPoint",
+},
+],
+"func_name":"set_player_ship_speed",
+"comment":"Sets and returns the **effective speed** of the specified player ship as a function of the **base speed** of the ship. By default, a player ship moves according to its base speed, which is 10 distance units per tick (in the future, different ships may have different base speeds). 
+Assuming the base speed of the ship is S, the new effective speed will be `(factor*S)+offset`. `duration` is the number of ticks during which the effective speed will be applied. Afterwards, the ship's speed reverts to its base speed. If `duration` is negative, the effective speed never reverts to the base speed.",
+"parameters": [
+{
+"name":"ship_id",
+"type":"EntityId",
+},
+{
+"name":"factor",
+"type":"FixedPoint",
+},
+{
+"name":"offset",
+"type":"FixedPoint",
+},
+{
+"name":"duration",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
 "type":"List",
 },
 ],
@@ -966,7 +994,7 @@ var documentation = [
 },
 ],
 "func_name":"entity_react_to_weapon",
-"comment":"Makes the entity identified by `id` react to the weapon described in `weapon_description`. Returns whether the entity reacted to the weapon. The returned value is typically used to decide whether the weapon should continue to exist or not.",
+"comment":"Makes the entity identified by `id` react to the weapon described in `weapon_description`. Returns whether the entity reacted to the weapon. The returned value is typically used to decide whether the weapon should continue to exist or not. In the case of an explosion, `x` and `y` should store the origin of the explosion. In the case of a bullet, `x` and `y` should store the vector of the bullet.",
 "parameters": [
 {
 "name":"entity_id",
@@ -1124,6 +1152,30 @@ var documentation = [
 {
 "return_types": [
 ],
+"func_name":"customizable_entity_set_mesh_xyz_scale",
+"comment":"Sets the scale of the mesh of the customizable entity identified by `id` along the x,y,z axis. A `scale` less than 1 makes the mesh appear smaller, while a `scale` greater than 1 makes the mesh appear larger.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"x_scale",
+"type":"FixedPoint",
+},
+{
+"name":"y_scale",
+"type":"FixedPoint",
+},
+{
+"name":"z_scale",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
 "func_name":"customizable_entity_set_mesh_angle",
 "comment":"Sets the rotation angle of the mesh of the customizable entity identified by `id`. The rotation is applied along the axis defined by `x_axis`,`y_axis`,`z_axis`.",
 "parameters": [
@@ -1146,6 +1198,56 @@ var documentation = [
 {
 "name":"z_axis",
 "type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_configure_music_response",
+"comment":"Configures the way the entity is going to respond to the music.",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"config",
+"type":"Map",
+"map_entries": [
+{
+"name":"color_start",
+"type":"Int32",
+},
+{
+"name":"color_end",
+"type":"Int32",
+},
+{
+"name":"scale_x_start",
+"type":"FixedPoint",
+},
+{
+"name":"scale_x_end",
+"type":"FixedPoint",
+},
+{
+"name":"scale_y_start",
+"type":"FixedPoint",
+},
+{
+"name":"scale_y_end",
+"type":"FixedPoint",
+},
+{
+"name":"scale_z_start",
+"type":"FixedPoint",
+},
+{
+"name":"scale_z_end",
+"type":"FixedPoint",
+},
+],
 },
 ],
 },

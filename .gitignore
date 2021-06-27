@@ -5,6 +5,9 @@ ppl-utils
 ppl-utils.exe
 ppl-utils-*zip
 
-#Custom levels
+# Custom levels
 content/levels/*
 !content/levels/sample_*
+
+# Cmake
+out
