@@ -612,6 +612,68 @@ var documentation = [
 "type":"EntityId",
 },
 ],
+"func_name":"new_baf_red",
+"comment":"Creates a new red BAF at the location `x`,`y`, and returns its entityId. A red BAF has more health points than a regular BAF. `angle` specifies the angle at which the BAF will move. `speed` specifies the maximum speed it will reach. `lifetime` indicates the number of game ticks after which the BAF is destroyed the next time it hits a wall. Specify a negative `lifetime` to create a BAF that lives forever.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"speed",
+"type":"FixedPoint",
+},
+{
+"name":"lifetime",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_baf_blue",
+"comment":"Creates a new blue BAF at the location `x`,`y`, and returns its entityId. A blue BAF bounces on walls with a slightly randomized angle. `angle` specifies the angle at which the BAF will move. `speed` specifies the maximum speed it will reach. `lifetime` indicates the number of game ticks after which the BAF is destroyed the next time it hits a wall. Specify a negative `lifetime` to create a BAF that lives forever.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"angle",
+"type":"FixedPoint",
+},
+{
+"name":"speed",
+"type":"FixedPoint",
+},
+{
+"name":"lifetime",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
 "func_name":"new_bomb",
 "comment":"Creates a new Bomb at the location `x`,`y`, and returns its entityId.",
 "parameters": [
