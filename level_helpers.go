@@ -99,7 +99,7 @@ func canRead(path string) bool {
 
 // GetLevelData returns a zip containing the level.
 // levelID is the path to the directory containing the level.
-func GetLevelData(levelID string) (bytes.Buffer, error) {
+func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 	var buffer bytes.Buffer
 	if !canRead(levelID) {
 		return buffer, errors.New("Can't read path")
@@ -109,6 +109,9 @@ func GetLevelData(levelID string) (bytes.Buffer, error) {
 
 	filepath.Walk(levelID,
 		func(path string, info os.FileInfo, err error) error {
+			if !disableFilter && string(path[len(path)-3:]) != "lua" {
+				return nil
+			}
 			log.Print(path)
 			path = strings.ReplaceAll(path, string(os.PathSeparator), "/")
 			var header zip.FileHeader
