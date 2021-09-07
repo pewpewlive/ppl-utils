@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -50,7 +51,7 @@ func getLevel(w http.ResponseWriter, r *http.Request) {
 		log.Print(err.Error())
 		return
 	}
-	levelData, err := GetLevelData(strippedLevelID)
+	levelData, err := GetLevelData(strippedLevelID, len(os.Args) > 1 && os.Args[1] == "--disable-ext-filter")
 	if err != nil {
 		log.Print(err.Error())
 		return
