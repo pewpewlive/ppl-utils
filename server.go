@@ -28,6 +28,7 @@ func list(w http.ResponseWriter, r *http.Request) {
 	levels := ListLevels()
 	jsonStr, marshalingError := json.Marshal(levels)
 	if marshalingError != nil {
+		http.Error(w, marshalingError.Error(), http.StatusInternalServerError)
 		return
 	}
 	fmt.Fprintf(w, string(jsonStr))
@@ -49,11 +50,13 @@ func getLevel(w http.ResponseWriter, r *http.Request) {
 	var strippedLevelID, err = getStrippedLevelID(r)
 	if err != nil {
 		log.Print(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	levelData, err := GetLevelData(strippedLevelID, len(os.Args) > 1 && os.Args[1] == "--disable-ext-filter")
 	if err != nil {
-		log.Print(err.Error())
+		log.Print("Failed to GetLevelData:" + err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Write(levelData.Bytes())
@@ -64,11 +67,13 @@ func getLevelManifest(w http.ResponseWriter, r *http.Request) {
 	var strippedLevelID, err = getStrippedLevelID(r)
 	if err != nil {
 		log.Print(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	levelManifest, err := GetLevelManifest(strippedLevelID)
 	if err != nil {
 		log.Print(err.Error())
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	w.Write(levelManifest)

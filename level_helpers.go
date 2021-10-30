@@ -38,8 +38,7 @@ type LevelManifest struct {
 func GetDir() string {
 	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
 	if err != nil {
-		log.Print(err.Error())
-		return ""
+		panic(err)
 	}
 	dir = dir + string(os.PathSeparator) + "content"
 	return dir
@@ -50,7 +49,7 @@ func GetDir() string {
 func ListLevels() []LevelJSON {
 	levels := []LevelJSON{}
 
-	filepath.Walk(GetDir(),
+	err := filepath.Walk(GetDir(),
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err
@@ -62,30 +61,36 @@ func ListLevels() []LevelJSON {
 			}
 
 			jsonContent, err := ioutil.ReadFile(path)
-
+			if err != nil {
+				log.Print("Failed to read file at path " + path)
+				return nil
+			}
 			levelManifest := &LevelManifest{}
 			err = json.Unmarshal(jsonContent, levelManifest)
 			if err != nil {
-				return err
+				log.Print("Failed to unmarshal file at path " + path)
+				return nil
 			}
 
-			level := new(LevelJSON)
 			directory = strings.ReplaceAll(directory, string(os.PathSeparator), "/")
-			level.Name = levelManifest.Name
-			level.Author = "TBD"
-			level.LevelID = directory
-			level.Date = "---"
-			level.Experimental = true
-			level.PublishState = 0
+			level := LevelJSON{
+				Name:            levelManifest.Name,
+				Author:          "TBD",
+				LevelID:         directory,
+				Date:            "---",
+				Experimental:    true,
+				PublishState:    0,
+				LeaderboardKind: 0,
+			}
 			if levelManifest.HasScoreLeaderboard {
 				level.LeaderboardKind = 1
-			} else {
-				level.LeaderboardKind = 0
 			}
-			levels = append(levels, *level)
+			levels = append(levels, level)
 			return nil
 		})
-
+	if err != nil {
+		log.Print("Failed to list levels: " + err.Error())
+	}
 	return levels
 }
 
@@ -107,9 +112,12 @@ func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 	zipWriter := zip.NewWriter(&buffer)
 	defer zipWriter.Close()
 
-	filepath.Walk(levelID,
+	err := filepath.Walk(levelID,
 		func(path string, info os.FileInfo, err error) error {
-			if !disableFilter && string(path[len(path)-3:]) != "lua" {
+			if err != nil {
+				return nil
+			}
+			if !disableFilter && filepath.Ext(path) != ".lua" {
 				return nil
 			}
 			log.Print(path)
@@ -128,15 +136,19 @@ func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 				log.Print("Failed to create reader")
 				return err
 			}
+			defer fileReader.Close()
 			_, err = io.Copy(zipFileWriter, fileReader)
 			if err != nil {
+				log.Print("Failed to copy file")
 				log.Print(err)
-				return nil
+				return err
 			}
 			return nil
 		})
+	if err != nil {
+		return buffer, err
+	}
 
-	zipWriter.Close()
 	return buffer, nil
 }
 
