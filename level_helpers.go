@@ -139,8 +139,7 @@ func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 			defer fileReader.Close()
 			_, err = io.Copy(zipFileWriter, fileReader)
 			if err != nil {
-				log.Print("Failed to copy file")
-				log.Print(err)
+				log.Print("Failed to copy file:" + err.Error())
 				return err
 			}
 			return nil
@@ -149,6 +148,8 @@ func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 		return buffer, err
 	}
 
+	// Tells `zipWriter` to finish writing the zip into `buffer`.
+	zipWriter.Close()
 	return buffer, nil
 }
 
