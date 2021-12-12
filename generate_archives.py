@@ -62,14 +62,21 @@ for config in configs:
     shutil.move('ppl-utils.exe', directory_name)
 
   # Copy the other content
-  shutil.copytree('content', directory_name + '/content')
+  shutil.copytree('content', os.path.join(directory_name, 'content'))
 
   # Remove all .DS_Store from the directory
   for root, dirs, files in os.walk(directory_name):
     for file in files:
-      if file == ".DS_Store":
+      if file == '.DS_Store':
         path = os.path.join(root, file)
         os.remove(path)
+
+  # Remove all levels that do not start with 'sample_'
+  level_dir_path = os.path.join(directory_name, 'content', 'levels')
+  for dir in os.listdir(level_dir_path):
+    if not dir.startswith('sample_'):
+      path = os.path.join(level_dir_path, dir)
+      shutil.rmtree(path)
 
   # Zip the temporary directory
   shutil.make_archive(directory_name, 'zip', directory_name)
