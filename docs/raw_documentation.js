@@ -18,6 +18,8 @@ var documentation = [
 "CUSTOMIZABLE_ENTITY",
 "SHIP",
 "BOMB",
+"BAF_BLUE",
+"BAF_RED",
 ],
 },
 {
@@ -1181,6 +1183,30 @@ var documentation = [
 {
 "return_types": [
 ],
+"func_name":"customizable_entity_set_mesh_xyz",
+"comment":"Sets the position of the mesh to x,y,z, relative to the center ofthe customizable entity identified by `id`",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
+},
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"z",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
 "func_name":"customizable_entity_set_mesh_z",
 "comment":"Sets the height of the mesh of the customizable entity identified by `id`. A `z` greater to 0 makes the mesh be closer, while a `z` less than 0 makes the mesh be further away.",
 "parameters": [
@@ -1259,6 +1285,18 @@ var documentation = [
 {
 "name":"z_axis",
 "type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"customizable_entity_skip_mesh_attributes_interpolation",
+"comment":"Skips the interpolation of the mesh' attributes (x, y, z, scale_x, scale_y, scale_z, rotation).",
+"parameters": [
+{
+"name":"entity_id",
+"type":"EntityId",
 },
 ],
 },

@@ -68,7 +68,10 @@ func ListLevels() []LevelJSON {
 			levelManifest := &LevelManifest{}
 			err = json.Unmarshal(jsonContent, levelManifest)
 			if err != nil {
-				log.Print("Failed to unmarshal file at path " + path)
+				log.Print("Failed to parse " + path)
+				log.Print("Error: " + err.Error())
+				// Do not return an error, otherwise a single malformed manifest
+				// will prevent the parsing of all the other manifests.
 				return nil
 			}
 

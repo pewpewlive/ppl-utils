@@ -1,0 +1,6 @@
+{
+  "name":"Sample: List of all the characters",
+  "descriptions":["This level allows visualizing new characters"],
+  "entry_point":"level.lua",
+  "has_score_leaderboard":false
+}
