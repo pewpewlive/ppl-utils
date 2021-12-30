@@ -191,7 +191,7 @@ return {
 {
   vertexes = {{0,0}, {0,9}, {12,9}, {12,0}, {6,13}, {6,-6}},
   segments = {{0,1,2,3,0},{4,5}},
-  extra = 'ф'
+  extra = 'ф' -- Also used in the Greek alphabet.
 },
 {
   vertexes = {{0,13}, {0,0}, {8,0}, {8,13}, {12,0}, {12,-3}},

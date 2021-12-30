@@ -102,7 +102,7 @@ return {
 {
   vertexes = {{0,0}, {0,10}, {13,10}, {13,0}, {6.5,13}, {6.5,-8}},
   segments = {{0,1,2,3,0},{4,5}},
-  extra = 'фφ'--because cubecrusher has used φ as a different character i put φφ so as to not get mixed up
+  extra = 'φ' -- The characters `φ` and `ф` mean the same letter. However, `ф` is part of the cyrillic alphabet.
 },
 {
   vertexes = {{0,13}, {13,0}, {0,0}, {13,13}},
