@@ -34,7 +34,7 @@ function shield_box.new(x, y, resurrection_weapon_config)
     end
     local conf = pewpew.get_player_configuration(player_id)
     pewpew.configure_player(player_id, {shield = conf.shield + 1})
-    -- local new_message = floating_message.new(x, y, "Shield +1", 1.5, 0xffff00ff, 3)
+    local new_message = floating_message.new(x, y, "Shield +1", 1.2048fx, 0xffff00ff, 3)
   end, 400)
 end
 
