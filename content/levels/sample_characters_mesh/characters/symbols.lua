@@ -208,7 +208,7 @@ return {
 {
   vertexes = {{0,13}, {12,13}, {12,0}, {0,0}, {-2, -3}, {14,16}},
   segments = {{0,1,2,3,0}, {4,5}},
-  extra = 'ø'
+  extra = '∅ø' -- symbol for the empty set, and a letter used in the danish alphabet
 },
 {
   vertexes = {{0,17}, {14,10}, {0,3}},
