@@ -88,7 +88,7 @@ end
 local mesh_A = {
   vertexes = {{0,-1}, {0,14}, {5,19}, {16,19}, {16,-1}, {0,10}, {16,10}},
   segments = {{0,1,2,3,4}, {5,6}},
-  extra = 'AА'
+  extra = 'AАΑ' -- 2nd 'A' is cyrillic. 3rd 'A' is greek
 }
 
 local mesh_C = {
@@ -100,7 +100,7 @@ local mesh_C = {
 local mesh_E = {
   vertexes = {{15,0}, {0,0}, {0,19}, {15,19}, {1,10}, {7,10}},
   segments = {{0,1,2,3}, {4,5}},
-  extra = 'EЕ'
+  extra = 'EЕΕ' -- 2nd 'E' is cyrillic. 3rd 'E' is greek
 }
 
 local mesh_G = {
@@ -112,7 +112,7 @@ local mesh_G = {
 local mesh_I = {
   vertexes = {{3,-1}, {3,20}},
   segments = {{0,1}},
-  extra = 'IІ'
+  extra = 'IІΙ' -- 2nd 'I' is cyrillic. 3rd 'I' is greek.
 }
 
 local mesh_L = {
@@ -260,6 +260,7 @@ add_acute_accent(mesh_E, 'É', {6,21}),
 add_circumflex(mesh_E, 'Ê', {4,21}),
 add_grave_accent(mesh_E, 'È', {4,21}),
 add_ogonek(mesh_E, 'Ę', {14,0}),
+add_acute_accent(mesh_E, 'Έ', {-6,19}),
 {
   vertexes = {{0,-1}, {0,19}, {15,19}, {1,10}, {7,10}},
   segments = {{0,1,2}, {3,4}},
@@ -289,14 +290,14 @@ add_circumflex(mesh_I, 'Î', {-1,22}),
 {
   vertexes = {{0,20}, {0,-1}, {0,10}, {10,10}, {15,20}, {15,19}, {15,0},{15,-1}},
   segments = {{0,1}, {2,3}, {4,5,3,6,7}},
-  extra = 'KК'
+  extra = 'KКΚ' -- 2nd 'K' is cyrillic. 3rd 'K' is greek.
 },
 mesh_L,
 add_lines(mesh_L, 'Ł', {{-3,8},{6,14}}, {{0, 1}}),
 {
   vertexes = {{0,-1}, {0,19},{1,19},{8,11}, {15,19},{16,19}, {16,-1}},
   segments = {{0,1,2,3,4,5,6}},
-  extra = 'MМ'
+  extra = 'MМΜ' -- 2nd 'M' is cyrillic. 3rd 'M' is greek.
 },
 mesh_N,
 add_acute_accent(mesh_N, 'Ń', {8,22}),
@@ -306,7 +307,7 @@ add_trema(mesh_O, 'Ö', {9,22}),
 {
   vertexes = {{0,-1}, {0,19}, {10,19}, {16,13}, {11,7}, {0,7}},
   segments = {{0,1,2,3,4,5}},
-  extra = 'PР'
+  extra = 'PРΡ' -- 2nd 'P' is cyrillic. 3rd 'P' is greek.
 },
 {
   vertexes = {{5,19}, {14,19}, {19,10}, {12,0}, {5,0}, {0,10}, {11,8}, {19,0}},
@@ -326,7 +327,7 @@ add_comma(mesh_S, 'Ș', {6, -1}),
 {
   vertexes = {{0,19}, {15,19}, {7,-1}, {7,19}},
   segments = {{0,1}, {2,3}},
-  extra = 'TТ'
+  extra = 'TТΤ' -- 2nd 'T' is cyrillic. 3rd 'T' is greek.
 },
 mesh_U,
 add_trema(mesh_U, 'Ü', {8, 22}),
@@ -345,7 +346,7 @@ add_macron(mesh_U, 'Ū', {4, 22}),
 {
   vertexes = {{0,20}, {0,19}, {17,0}, {17,-1}, {17,20}, {17,19}, {0,0}, {0,-1}},
   segments = {{0,1,2,3}, {4,5,6,7}},
-  extra = 'XХ'
+  extra = 'XХΧ' -- 2nd 'X' is cyrillic. 3rd 'X' is greek
 },
 {
   vertexes = {{0,20}, {0,19}, {9,10}, {18,19}, {18,20}, {9,-1}, {9,10}, },
