@@ -109,6 +109,12 @@ local mesh_G = {
   extra = 'G'
 }
 
+local mesh_H = {
+  vertexes = {{0,-1}, {0,20}, {0,10}, {15,10}, {15,-1}, {15,20}},
+  segments = {{0,1}, {2,3}, {4,5}},
+  extra = 'HНΗ' -- 2nd 'H' is cyrillic. 3rd 'H' is greek.
+}
+
 local mesh_I = {
   vertexes = {{3,-1}, {3,20}},
   segments = {{0,1}},
@@ -124,13 +130,13 @@ local mesh_L = {
 local mesh_N = {
   vertexes = {{0,-1}, {0,19}, {1,19}, {14,0}, {15,0}, {15,19}},
   segments = {{0,1,2,3,4,5}},
-  extra = 'N'
+  extra = 'NΝ' -- 2nd 'N' is greek.
 }
 
 local mesh_O = {
   vertexes = {{5,19}, {14,19}, {19,10}, {14,0}, {5,0}, {0,10}},
   segments = {{0,1,2,3,4,5,0}},
-  extra = 'OО'
+  extra = 'OОΟ' -- 2nd 'O' is cyrillic. 3rd 'O' is greek.
 }
 
 local mesh_S = {
@@ -148,7 +154,7 @@ local mesh_U = {
 local mesh_Z = {
   vertexes = {{0,19}, {15,19}, {0,0}, {15,0}},
   segments = {{0,1,2,3}},
-  extra = 'Z'
+  extra = 'ZΖ' -- 2nd 'Z' is greek
 }
 
 local mesh_c = {
@@ -233,13 +239,14 @@ return {
 mesh_A,
 add_grave_accent(mesh_A, 'À', {7,21}),
 add_acute_accent(mesh_A, 'Á', {10,21}),
+add_acute_accent(mesh_A, 'Ά', {-1,18}),
 add_ogonek(mesh_A, 'Ą', {16,0}),
 add_trema(mesh_A, 'Ä', {11,22}),
 add_tilde(mesh_A, 'Ã', {5,22}),
 {
   vertexes = {{0,0}, {0,19}, {11,19}, {16,14}, {16,0}, {16,10}, {0,10}},
   segments = {{0,1,2,3,4,0}, {5,6}},
-  extra = 'BВ'
+  extra = 'BВΒ' -- 2nd 'B' is cyrillic. 3rd 'B' is greek.
 },
 mesh_C,
 add_acute_accent(mesh_C, 'Ć', {10,21}),
@@ -260,7 +267,7 @@ add_acute_accent(mesh_E, 'É', {6,21}),
 add_circumflex(mesh_E, 'Ê', {4,21}),
 add_grave_accent(mesh_E, 'È', {4,21}),
 add_ogonek(mesh_E, 'Ę', {14,0}),
-add_acute_accent(mesh_E, 'Έ', {-6,19}),
+add_acute_accent(mesh_E, 'Έ', {-7,18}),
 {
   vertexes = {{0,-1}, {0,19}, {15,19}, {1,10}, {7,10}},
   segments = {{0,1,2}, {3,4}},
@@ -268,11 +275,8 @@ add_acute_accent(mesh_E, 'Έ', {-6,19}),
 },
 mesh_G,
 add_caron(mesh_G, 'Ğ', {10,22}),
-{
-  vertexes = {{0,-1}, {0,20}, {0,10}, {15,10}, {15,-1}, {15,20}},
-  segments = {{0,1}, {2,3}, {4,5}},
-  extra = 'HН'
-},
+mesh_H,
+add_acute_accent(mesh_H, 'Ή', {-7,18}),
 mesh_I,
 add_acute_accent(mesh_I, 'Í', {2,22}),
 add_ogonek(mesh_I, 'Į', {3,0}),
@@ -303,6 +307,7 @@ mesh_N,
 add_acute_accent(mesh_N, 'Ń', {8,22}),
 mesh_O,
 add_acute_accent(mesh_O, 'Ó', {8,22}),
+add_acute_accent(mesh_O, 'Ό', {-2,18}),
 add_trema(mesh_O, 'Ö', {9,22}),
 {
   vertexes = {{0,-1}, {0,19}, {10,19}, {16,13}, {11,7}, {0,7}},
@@ -351,7 +356,7 @@ add_macron(mesh_U, 'Ū', {4, 22}),
 {
   vertexes = {{0,20}, {0,19}, {9,10}, {18,19}, {18,20}, {9,-1}, {9,10}, },
   segments = {{0,1,2,3,4}, {5,6}},
-  extra = 'Y'
+  extra = 'YΥ' -- 2nd 'Y' is greek.
 },
 mesh_Z,
 add_overdot(mesh_Z, 'Ż', {9,23}),
