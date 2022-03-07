@@ -215,7 +215,7 @@ return {
   {
     vertexes = {{4,19},{13,19},{17,15},{17,4},{13,0},{4,0},{0,4},{0,15}, {2,9.5},{15,9.5}},
     segments = {{0,1,2,3,4,5,6,7,0}, {8,9}},
-    extra = 'ϴΘ' -- GREEK CAPITAL THETA SYMBOL and GREEK CAPITAL LETTER THETA
+    extra = 'Θ' -- GREEK CAPITAL LETTER THETA
   },
   {
     vertexes = {{2,0},{17,0},{2,19},{17,19},{4,9.5},{14,9.5},{2,2},{17,2},{2,17},{17,17}},
