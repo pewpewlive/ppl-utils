@@ -46,14 +46,36 @@ func GetDir() string {
 
 // ListLevels lists the levels.
 // A level is a subdirectory that contains a properly formatted json file.
-func ListLevels() []LevelJSON {
+func ListLevels(dir string) []LevelJSON {
 	levels := []LevelJSON{}
 
-	err := filepath.Walk(GetDir(),
+	err := filepath.Walk(dir,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err
 			}
+
+			// Check if the file is a symlink.
+			file_info, stat_err := os.Lstat(path)
+			if stat_err != nil {
+				log.Print("Failed to os.Lstat")
+				return stat_err
+			}
+			fileIsASymLink := file_info.Mode()&os.ModeSymlink != 0
+			// If the file is a symlink, recursively walk it.
+			// TODO: prevent infinite loops.
+			if fileIsASymLink {
+				link, read_link_err := os.Readlink(path)
+				if read_link_err != nil {
+					log.Print("Failed to os.ReadLink")
+					return read_link_err
+				}
+				log.Print("followed sym link to " + link)
+				sub_levels := ListLevels(link)
+				levels = append(levels, sub_levels...)
+				return nil
+			}
+
 			directory, filename := filepath.Split(path)
 
 			if filename != "manifest.json" {

@@ -25,7 +25,7 @@ func cacheControlWrapper(h http.Handler) http.Handler {
 
 func list(w http.ResponseWriter, r *http.Request) {
 	setHeaders(w, r)
-	levels := ListLevels()
+	levels := ListLevels(GetDir())
 	jsonStr, marshalingError := json.Marshal(levels)
 	if marshalingError != nil {
 		http.Error(w, marshalingError.Error(), http.StatusInternalServerError)
