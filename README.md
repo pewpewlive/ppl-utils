@@ -30,7 +30,7 @@ You can also take a look at [the code of levels] that have been released.
 ## Building the server
 
 If you don't want (or can't) use one of the prebuilt binaries, you can build the binaries yourself.
-The only requirement is to have golang 1.14 installed on your system.
+The only requirement is to have golang 1.14 or newer installed on your system.
 After obtaining the source code, build with `go build`.
 
 [Download a prebuilt archive]: https://github.com/jyaif/ppl-utils/tags

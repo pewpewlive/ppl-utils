@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 # This file generates the prebuilt binaries.
 
@@ -6,11 +6,12 @@ import os
 import platform
 import shutil
 
-configs = [{'env':{'GOOS':'windows', 'GOARCH':'amd64'}, 'name':'windows-x64'},
-           {'env':{'GOOS':'windows', 'GOARCH':'386'}, 'name':'windows-x32'},
-           {'env':{'GOOS':'darwin', 'GOARCH':'amd64'}, 'name':'macos-x64'},
-           {'env':{'GOOS':'linux', 'GOARCH':'amd64'}, 'name':'linux-x64'},
-           {'env':{'GOOS':'linux', 'GOARCH':'386'}, 'name':'linux-x32'},
+configs = [{'env':{'GOOS':'windows', 'GOARCH':'amd64'}, 'name':'windows-x86_64'},
+           {'env':{'GOOS':'windows', 'GOARCH':'386'}, 'name':'windows-x86'},
+           {'env':{'GOOS':'darwin', 'GOARCH':'amd64'}, 'name':'macos-x86_64'},
+           {'env':{'GOOS':'darwin', 'GOARCH':'arm64'}, 'name':'macos-arm64'},
+           {'env':{'GOOS':'linux', 'GOARCH':'amd64'}, 'name':'linux-x86_64'},
+           {'env':{'GOOS':'linux', 'GOARCH':'386'}, 'name':'linux-x86'},
            {'env':{'GOOS':'linux', 'GOARCH':'arm64'}, 'name':'linux-arm64'},
            {'env':{'GOOS':'linux', 'GOARCH':'arm'}, 'name':'linux-arm'}]
 
