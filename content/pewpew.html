@@ -233,19 +233,17 @@
     try {
       WebAssembly;
       var xhr = new XMLHttpRequest();
-      xhr.open('GET', 'pewpewlive-wasm.wasm', true);
+      xhr.open('GET', 'pewpewlive.wasm', true);
       xhr.responseType = 'arraybuffer';
       xhr.onload = function () {
         Module.wasmBinary = xhr.response;
         var script = document.createElement('script');
-        script.src = "pewpewlive-wasm.js";
+        script.src = "pewpewlive.js";
         document.body.appendChild(script);
       };
       xhr.send(null);
     } catch (e) {
-      var script = document.createElement('script');
-      script.src = "pewpewlive-asmjs.js";
-      document.body.appendChild(script);
+      alert("Error loading the webassembly");
     }
 
     const element_that_makes_sound_on_click = document.querySelector('canvas');

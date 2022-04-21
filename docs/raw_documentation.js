@@ -243,7 +243,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"configure_player",
-"comment":"Configures the player at the specified `player_index`. `player_index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis.",
+"comment":"Configures the player at the specified `player_index`. `player_index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis. To temporarily override the XY position of the camera, set both `camera_x_override` and `camera_y_override`; this will make the camera be interpolated from wherever it was, to that new position.",
 "parameters": [
 {
 "name":"player_index",
@@ -262,6 +262,14 @@ var documentation = [
 "type":"Int32",
 },
 {
+"name":"camera_x_override",
+"type":"FixedPoint",
+},
+{
+"name":"camera_y_override",
+"type":"FixedPoint",
+},
+{
 "name":"camera_distance",
 "type":"FixedPoint",
 },
@@ -276,6 +284,28 @@ var documentation = [
 {
 "name":"shoot_joystick_color",
 "type":"Int32",
+},
+],
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"configure_player_hud",
+"comment":"Configures the player's HUD.`player_index` must in the range [0, get_number_of_players() - 1].",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+{
+"name":"configuration",
+"type":"Map",
+"map_entries": [
+{
+"name":"top_left_line",
+"type":"String",
 },
 ],
 },
@@ -1292,7 +1322,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_skip_mesh_attributes_interpolation",
-"comment":"Skips the interpolation of the mesh' attributes (x, y, z, scale_x, scale_y, scale_z, rotation).",
+"comment":"Skips the interpolation of the mesh's attributes (x, y, z, scale_x, scale_y, scale_z, rotation).",
 "parameters": [
 {
 "name":"entity_id",

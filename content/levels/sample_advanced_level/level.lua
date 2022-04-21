@@ -13,6 +13,9 @@ pewpew.customizable_entity_set_mesh(dots_background, "/dynamic/random_dots.lua",
 -- Configure the player, with 2 shields.
 pewpew.configure_player(0, {shield = 2})
 
+-- Show "Good day to create" in the HUD
+pewpew.configure_player_hud(0, {top_left_line = "Good day to create"})
+
 -- Create the player's ship at the center of the map.
 local ship_id = pewpew.new_player_ship(width / 2fx, height / 2fx, 0)
 -- Configure the permanent weapon of the player's ship.
