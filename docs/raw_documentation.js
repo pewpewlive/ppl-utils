@@ -20,6 +20,8 @@ var documentation = [
 "BOMB",
 "BAF_BLUE",
 "BAF_RED",
+"WARY_MISSILE",
+"UFO_BULLET",
 ],
 },
 {
