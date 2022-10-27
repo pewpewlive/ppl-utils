@@ -22,6 +22,9 @@ var documentation = [
 "BAF_RED",
 "WARY_MISSILE",
 "UFO_BULLET",
+"PLAYER_BULLET",
+"BOMB_EXPLOSION",
+"PLAYER_EXPLOSION",
 ],
 },
 {
@@ -466,6 +469,17 @@ var documentation = [
 "name":"duration",
 "type":"Int32",
 },
+],
+},
+{
+"return_types": [
+{
+"type":"List",
+},
+],
+"func_name":"get_all_entities",
+"comment":"Returns the list of the entityIDs of all the entities currently in the level. This includes the various bullets and *all* the custom entities.",
+"parameters": [
 ],
 },
 {
@@ -1498,7 +1512,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"customizable_entity_start_exploding",
-"comment":"Makes the customizable entity identified by `id` explode for a duration of `explosion_duration` game ticks. After the explosion, the entity is destroyed.",
+"comment":"Makes the customizable entity identified by `id` explode for a duration of `explosion_duration` game ticks. After the explosion, the entity is destroyed. `explosion_duration` must be less than 255. Any scale applied to the entity is also applied to the explosion.",
 "parameters": [
 {
 "name":"entity_id",
