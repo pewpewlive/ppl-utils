@@ -1,6 +1,7 @@
 {
   "name":"Sample: Advanced level",
   "descriptions":["Demonstrates how to create enemies."],
+  "information":"Here you can put some information. This text can contain #ffff00ffcolors#ffffffff!",
   "entry_point":"level.lua",
   "has_score_leaderboard":false
 }
