@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"strings"
 )
 
 func setHeaders(w http.ResponseWriter, r *http.Request) {
@@ -35,14 +34,11 @@ func list(w http.ResponseWriter, r *http.Request) {
 }
 
 func getStrippedLevelID(r *http.Request) (string, error) {
-	levelID := r.FormValue("level_id")
+	levelID := r.FormValue("level_uuid")
 	if levelID == "" {
 		return "", errors.New("Missing level_id paramenter in request")
 	}
-	if !strings.HasPrefix(levelID, "/dev/") {
-		return "", errors.New("level_is is not prefixed with /dev/")
-	}
-	return levelID[5:], nil
+	return levelID, nil
 }
 
 func getLevel(w http.ResponseWriter, r *http.Request) {
@@ -84,6 +80,8 @@ func main() {
 	fs := cacheControlWrapper(http.FileServer(http.Dir(GetDir())))
 	http.Handle("/", fs)
 
+	http.HandleFunc("/custom_levels/get_public_levels", list)
+	// Deprecated. Remove once Era2 has been released for a while.
 	http.HandleFunc("/custom_levels/list2", list)
 	http.HandleFunc("/custom_levels/get_level", getLevel)
 	http.HandleFunc("/custom_levels/get_level_manifest", getLevelManifest)

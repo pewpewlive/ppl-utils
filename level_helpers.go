@@ -19,11 +19,14 @@ type LevelJSON struct {
 	Name            string `json:"name"`
 	Author          string `json:"author"`
 	AuthorAccountId string `json:"account_id"`
+	// Deprecated. Remove once Era2 has been out for a while.
 	LevelID         string `json:"level_id"`
-	Date            string `json:"date"`
+	LevelUUID       string `json:"level_uuid"`
+	Date            int    `json:"date"`
 	PublishState    int    `json:"publish_state"`
 	Experimental    bool   `json:"experimental"`
 	LeaderboardKind int    `json:"leaderboard_kind"`
+	Version         int    `json:"v"`
 }
 
 // LevelManifest stores the manifest of a level.
@@ -61,6 +64,9 @@ func ListLevels(dir string) []LevelJSON {
 				log.Print("Failed to os.Lstat")
 				return stat_err
 			}
+
+			log.Print("path: " + path + ", file_info.Mode():" + string(file_info.Mode()))
+
 			fileIsASymLink := file_info.Mode()&os.ModeSymlink != 0
 			// If the file is a symlink, recursively walk it.
 			// TODO: prevent infinite loops.
@@ -102,10 +108,12 @@ func ListLevels(dir string) []LevelJSON {
 				Name:            levelManifest.Name,
 				Author:          "TBD",
 				LevelID:         directory,
-				Date:            "---",
+				LevelUUID:       directory,
+				Date:            0,
 				Experimental:    true,
 				PublishState:    0,
 				LeaderboardKind: 0,
+				Version:         0,
 			}
 			if levelManifest.HasScoreLeaderboard {
 				level.LeaderboardKind = 1

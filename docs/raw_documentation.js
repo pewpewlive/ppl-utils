@@ -70,6 +70,7 @@ var documentation = [
 "REPULSIVE",
 "ATOMIZE",
 "SMALL_ATOMIZE",
+"SMALL_FREEZE",
 ],
 },
 {
@@ -193,6 +194,37 @@ var documentation = [
 },
 {
 "name":"delta",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+],
+"func_name":"increase_score_streak_of_player",
+"comment":"Increases the score streak counter of the player at the specified `player_index` by an amount of `delta`. This counter is used to determine at which level of score streak the player is at. In turn, the score streak level is used to determine how much pointonium is given. Typically the score streak counter should be increased when an enemy is destroyed with the same score that the enemy provide. `player_index` must in the range [0, get_number_of_players() - 1]. Note that `delta` can be negative.",
+"parameters": [
+{
+"name":"player_index",
+"type":"Int32",
+},
+{
+"name":"delta",
+"type":"Int32",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"Int32",
+},
+],
+"func_name":"get_score_streak_level",
+"comment":"Returns a number between 0 and 3. 0 is the lowest score streak (no pointonium is given), while 3 is the highest (3 pointoniums is usually given)",
+"parameters": [
+{
+"name":"player_index",
 "type":"Int32",
 },
 ],
@@ -746,6 +778,130 @@ var documentation = [
 "type":"EntityId",
 },
 ],
+"func_name":"new_bonus",
+"comment":"Creates a new Bonus at the location `x`,`y` of the type `type`, and returns its entityId. For shield bonuses, the option `number_of_shields` determines how many shields are given out. For weapon bonuses, the options `cannon`, `frequency`, `weapon_duration` have the same meaning as in `pewpew.configure_player_ship_weapon`. For speed bonuses, the options `speed_factor`, `speed_offset`,and `speed_duration` have the same meaning as in `set_player_speed`. `taken_callback` is called when the bonus is taken, and is mandatory for the reinstantiation bonus. The callback receives as arguments the entity id of the bonus, the player id, and the ship's entity id. The default box duration is 400 ticks.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"type",
+"type":"Int32",
+"enum": "BonusType",
+},
+{
+"name":"config",
+"type":"Map",
+"map_entries": [
+{
+"name":"box_duration",
+"type":"Int32",
+},
+{
+"name":"cannon",
+"type":"Int32",
+"enum": "CannonType",
+},
+{
+"name":"frequency",
+"type":"Int32",
+"enum": "CannonFrequency",
+},
+{
+"name":"weapon_duration",
+"type":"Int32",
+},
+{
+"name":"number_of_shields",
+"type":"Int32",
+},
+{
+"name":"speed_factor",
+"type":"FixedPoint",
+},
+{
+"name":"speed_offset",
+"type":"FixedPoint",
+},
+{
+"name":"speed_duration",
+"type":"Int32",
+},
+{
+"name":"taken_callback",
+"type":"Callback",
+},
+],
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_crowder",
+"comment":"Creates a new Crowder at the location `x`,`y`, and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_floating_message",
+"comment":"Creates a new floating message at the location `x`,`y`, with `str` as the message. The scale is a number that determines how large the  message will be. `1` is the default scale. `ticks_before_fade` determines how many ticks occur before the message starts to fade out. If not specified, `scale` is 1 and `ticks_before_fade` is 30. Returns the floating message's entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"str",
+"type":"String",
+},
+{
+"name":"config",
+"type":"Map",
+"map_entries": [
+{
+"name":"scale",
+"type":"FixedPoint",
+},
+{
+"name":"ticks_before_fade",
+"type":"Int32",
+},
+],
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
 "func_name":"new_customizable_entity",
 "comment":"Creates a new customizable entity at the location `x`,`y`, and returns its entityId.",
 "parameters": [
@@ -811,6 +967,29 @@ var documentation = [
 {
 "name":"angle",
 "type":"FixedPoint",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
+"func_name":"new_pointonium",
+"comment":"Creates a new Pointonium at the location `x`,`y`. Value must be 64, 128, or 256.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"value",
+"type":"Int32",
 },
 ],
 },
