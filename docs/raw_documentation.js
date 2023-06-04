@@ -74,6 +74,15 @@ var documentation = [
 ],
 },
 {
+"name":"BonusType",
+"values": [
+"REINSTANTIATION",
+"SHIELD",
+"SPEED",
+"WEAPON",
+],
+},
+{
 "name":"WeaponType",
 "values": [
 "BULLET",
