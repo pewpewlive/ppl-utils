@@ -4,13 +4,12 @@
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <title>PewPew Live</title>
+    <link rel="icon" href="https://pewpew.live/img/favicon.ico" type="image/x-icon">
+    <title>PPL Utils</title>
     <style>
       body {
-        font-family: arial;
-        margin: auto;
-        background-color: #030a10;
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: black;
       }
 
       img {
@@ -18,13 +17,16 @@
         margin-left: auto;
         margin-right: auto;
       }
-
       .box {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
+        display: flex;
       }
-
+      .logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 80vh;
+      }
       .emscripten {
         padding-right: 0;
         margin-left: auto;
@@ -135,23 +137,27 @@
 
   <body>
     <img src="https://pewpew.live/img/main/title.png" style="width: 25%" />
-    <div class="box" style="width: 12.5%">
-      <div class="spinner" id="spinner"></div>
-      <div class="emscripten" id="status">Downloading...</div>
-
-      <div class="emscripten">
-        <progress value="0" max="100" id="progress" hidden="1"></progress>
+    <div class="logo">
+      <img src="https://pewpew.live/img/main/title.png" />
+      <div class="box">
+        <div class="spinner" id="spinner"></div>
+        <div class="emscripten" id="status">Downloading...</div>
+  
+        <div class="emscripten">
+          <progress value="0" max="100" id="progress" hidden="1"></progress>
+        </div>
+  
+        <div class="emscripten_border">
+          <canvas
+            class="emscripten"
+            id="canvas"
+            oncontextmenu="event.preventDefault()"
+            onmouseenter="window.focus()"
+            onclick="window.focus()"
+          ></canvas>
+        </div>
       </div>
-
-      <div class="emscripten_border">
-        <canvas
-          class="emscripten"
-          id="canvas"
-          oncontextmenu="event.preventDefault()"
-          onmouseenter="window.focus()"
-          onclick="window.focus()"
-        ></canvas>
-      </div>
+    </div>
 
       <script type="text/javascript">
         // Workaround emscripten limitation to change the canvas'
