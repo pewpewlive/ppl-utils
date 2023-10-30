@@ -25,6 +25,10 @@ var documentation = [
 "PLAYER_BULLET",
 "BOMB_EXPLOSION",
 "PLAYER_EXPLOSION",
+"BONUS",
+"FLOATING_MESSAGE",
+"POINTONIUM",
+"BONUS_IMPLOSION",
 ],
 },
 {
@@ -89,6 +93,15 @@ var documentation = [
 "FREEZE_EXPLOSION",
 "REPULSIVE_EXPLOSION",
 "ATOMIZE_EXPLOSION",
+],
+},
+{
+"name":"AsteroidSize",
+"values": [
+"SMALL",
+"MEDIUM",
+"LARGE",
+"VERY_LARGE",
 ],
 },
 ],
@@ -670,6 +683,30 @@ var documentation = [
 "type":"EntityId",
 },
 ],
+"func_name":"new_asteroid_with_size",
+"comment":"Creates a new Asteroid at the location `x`,`y` with an AsteroidSize given by `size` and returns its entityId.",
+"parameters": [
+{
+"name":"x",
+"type":"FixedPoint",
+},
+{
+"name":"y",
+"type":"FixedPoint",
+},
+{
+"name":"size",
+"type":"Int32",
+"enum": "AsteroidSize",
+},
+],
+},
+{
+"return_types": [
+{
+"type":"EntityId",
+},
+],
 "func_name":"new_baf",
 "comment":"Creates a new BAF at the location `x`,`y`, and returns its entityId. `angle` specifies the angle at which the BAF will move. `speed` specifies the maximum speed it will reach. `lifetime` indicates the number of game ticks after which the BAF is destroyed the next time it hits a wall. Specify a negative `lifetime` to create a BAF that lives forever.",
 "parameters": [
@@ -875,7 +912,7 @@ var documentation = [
 },
 ],
 "func_name":"new_floating_message",
-"comment":"Creates a new floating message at the location `x`,`y`, with `str` as the message. The scale is a number that determines how large the  message will be. `1` is the default scale. `ticks_before_fade` determines how many ticks occur before the message starts to fade out. If not specified, `scale` is 1 and `ticks_before_fade` is 30. Returns the floating message's entityId.",
+"comment":"Creates a new floating message at the location `x`,`y`, with `str` as the message. The scale is a number that determines how large the  message will be. `1` is the default scale. `ticks_before_fade` determines how many ticks occur before the message starts to fade out. `is_optional` can be used to tell the game if the message can be hidden depending on the user's UI settings.If not specified, `scale` is 1, `ticks_before_fade` is 30 and `is_optional` is `false`. Returns the floating message's entityId.",
 "parameters": [
 {
 "name":"x",
@@ -900,6 +937,10 @@ var documentation = [
 {
 "name":"ticks_before_fade",
 "type":"Int32",
+},
+{
+"name":"is_optional",
+"type":"Boolean",
 },
 ],
 },
@@ -1291,7 +1332,7 @@ var documentation = [
 },
 ],
 "func_name":"entity_react_to_weapon",
-"comment":"Makes the entity identified by `id` react to the weapon described in `weapon_description`. Returns whether the entity reacted to the weapon. The returned value is typically used to decide whether the weapon should continue to exist or not. In the case of an explosion, `x` and `y` should store the origin of the explosion. In the case of a bullet, `x` and `y` should store the vector of the bullet.",
+"comment":"Makes the entity identified by `id` react to the weapon described in `weapon_description`. Returns whether the entity reacted to the weapon. The returned value is typically used to decide whether the weapon should continue to exist or not. In the case of an explosion, `x` and `y` should store the origin of the explosion. In the case of a bullet, `x` and `y` should store the vector of the bullet. The player identified by `player_index` will be assigned points. If `player_index` is invalid, no player will be assigned points.",
 "parameters": [
 {
 "name":"entity_id",
