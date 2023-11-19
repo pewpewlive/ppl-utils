@@ -1,21 +1,12 @@
--- Set how large the level will be.
-pewpew.set_level_size(500fx, 500fx)
-
--- Create an entity at position (0,0) that will hold the background mesh.
-local background = pewpew.new_customizable_entity(0fx, 0fx)
-
--- Animate the background.
-local frame = 0
-pewpew.add_update_callback(function()
-  frame = frame + 1
-  if frame == 50 then
-    frame = 0
+local id = pewpew.new_customizable_entity(0fx, 0fx)
+local mesh_index = 0
+pewpew.entity_set_update_callback(id, function()
+  -- We have 120 frames out of 121 total frames. The last frame is equal to the first one and is unused.
+  -- The index of the 120th frame is 119. (Although we are using lua, mesh and sound indexes start from 0 in PewPew Lib API.)
+  -- Loop when we have exceeded past the last frame.
+  if mesh_index > 119 then
+    mesh_index = 0
   end
-  pewpew.customizable_entity_set_mesh(background, "/dynamic/square500x500_graphic.lua", frame)
+  pewpew.customizable_entity_set_flipping_meshes(id, "/dynamic/graphics.lua", mesh_index, mesh_index + 1)
+  mesh_index = mesh_index + 2
 end)
-
--- Create the player's ship.
-local player_x = 250fx
-local player_y = 100fx
-local player_index = 0 -- there is only one player
-pewpew.new_player_ship(player_x, player_y, player_index)

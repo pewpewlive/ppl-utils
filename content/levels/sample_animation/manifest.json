@@ -1,6 +1,6 @@
 {
-  "name":"Sample: Animation",
-  "descriptions":["The color and position of a vertex is animated."],
-  "entry_point":"level.lua",
-  "has_score_leaderboard":false
+  "name": "Sample: Animation",
+  "descriptions": ["A smooth hexagon!"],
+  "entry_point": "level.lua",
+  "has_score_leaderboard": false
 }
