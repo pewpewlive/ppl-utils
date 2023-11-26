@@ -1,10 +1,12 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 )
@@ -75,6 +77,42 @@ func getLevelManifest(w http.ResponseWriter, r *http.Request) {
 	w.Write(levelManifest)
 }
 
+func udp_server() {
+	local_addr, err := net.ResolveUDPAddr("udp4", ":9001")
+	if err != nil {
+		panic(err)
+	}
+	last_buf := make([]byte, 4)
+	for {
+		conn, err := net.ListenUDP("udp4", local_addr)
+		if err != nil {
+			log.Print(err)
+			conn.Close()
+			continue
+		}
+		buf := make([]byte, 4)
+		_, addr, err := conn.ReadFromUDP(buf)
+		if err != nil {
+			log.Print(err)
+			conn.Close()
+			continue
+		}
+		if bytes.Equal(last_buf, buf) {
+			log.Print("Dropping duplicate pings")
+			conn.Close()
+			continue
+		}
+		addr.Port = 9002
+		_, err = conn.WriteToUDP(buf, addr)
+		if err != nil {
+			log.Print(err)
+			conn.Close()
+			continue
+		}
+		conn.Close()
+	}
+}
+
 func main() {
 	// Serves the static files
 	fs := cacheControlWrapper(http.FileServer(http.Dir(GetDir())))
@@ -88,5 +126,8 @@ func main() {
 
 	log.Print("Starting server on port 9000")
 	log.Print("open http://localhost:9000/pewpew.html to run PewPew")
+
+	go udp_server()
+
 	log.Fatal(http.ListenAndServe(":9000", nil))
 }
