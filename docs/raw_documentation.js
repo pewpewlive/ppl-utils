@@ -302,7 +302,7 @@ var documentation = [
 "return_types": [
 ],
 "func_name":"configure_player",
-"comment":"Configures the player at the specified `player_index`. `player_index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis. To temporarily override the XY position of the camera, set both `camera_x_override` and `camera_y_override`; this will make the camera be interpolated from wherever it was, to that new position.",
+"comment":"Configures the player at the specified `player_index`. `player_index` must in the range [0, get_number_of_players() - 1]. A `camera_distance` less than 0fx makes the camera move away from the ship. `camera_rotation_x_axis` is in radian and rotates along the X axis. To temporarily override the XY position of the camera, set **both** `camera_x_override` and `camera_y_override`; this will make the camera be interpolated from wherever it was, to that new position.",
 "parameters": [
 {
 "name":"player_index",
