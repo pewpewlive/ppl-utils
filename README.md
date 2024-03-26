@@ -22,7 +22,7 @@ You need a computer with Windows, macOS, or Linux. You currently can't use a pho
   Play a level by clicking on it.
 1. Change code in `content/levels/` and see how it affects the existing levels.
 1. Open the browser's Javascript console to see the error messages.
-1. Read the [wiki].
+1. Read the [documentation].
 1. Ask questions in the [Discord chat room].
 
 You can also take a look at [the code of levels] that have been released.
@@ -34,6 +34,6 @@ The only requirement is to have golang 1.14 or newer installed on your system.
 After obtaining the source code, build with `go build`.
 
 [Download a prebuilt archive]: https://github.com/jyaif/ppl-utils/tags
-[wiki]: https://github.com/jyaif/ppl-utils/wiki
+[documentation]: https://pewpewlive.github.io/ppl-docs/
 [Discord chat room]: https://discord.gg/YvGd2pF
 [the code of levels]: https://github.com/jyaif/ppl-levels/tree/master
