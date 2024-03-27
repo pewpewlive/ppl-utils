@@ -1,6 +1,6 @@
 # ppl-utils
 
-This repository hosts the code source and for the PewPew Live
+This repository hosts the source code for the PewPew Live
 development environment.
 It allows anyone to create custom levels for PewPew Live.
 
