@@ -1,3 +1,3 @@
-module github.com/jyaif/ppl-utils
+module github.com/pewpewlive/ppl-utils
 
 go 1.14
