@@ -7,6 +7,7 @@ import platform
 import shutil
 
 configs = [{'env':{'GOOS':'windows', 'GOARCH':'amd64'}, 'name':'windows-x86_64'},
+           {'env':{'GOOS':'windows', 'GOARCH':'arm64'}, 'name':'windows-arm64'},
            {'env':{'GOOS':'windows', 'GOARCH':'386'}, 'name':'windows-x86'},
            {'env':{'GOOS':'darwin', 'GOARCH':'amd64'}, 'name':'macos-x86_64'},
            {'env':{'GOOS':'darwin', 'GOARCH':'arm64'}, 'name':'macos-arm64'},
