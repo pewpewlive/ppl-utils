@@ -1,6 +1,0 @@
-{
-  "name":"Sample: Useful helpers",
-  "descriptions":["Useful helpers for powerups, graphics, sound!"],
-  "entry_point":"level.lua",
-  "has_score_leaderboard":false
-}
