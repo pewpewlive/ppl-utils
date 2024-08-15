@@ -18,15 +18,15 @@ import (
 type LevelJSON struct {
 	Name            string `json:"name"`
 	Author          string `json:"author"`
-	AuthorAccountId string `json:"account_id"`
-	// Deprecated. Remove once Era2 has been out for a while.
-	LevelID         string `json:"level_id"`
+	AuthorAccountID string `json:"account_id"`
 	LevelUUID       string `json:"level_uuid"`
-	Date            int    `json:"date"`
+	Date            int64  `json:"date"`
 	PublishState    int    `json:"publish_state"`
 	Experimental    bool   `json:"experimental"`
 	LeaderboardKind int    `json:"leaderboard_kind"`
 	Version         int    `json:"v"`
+	Difficulty      int    `json:"diff"`
+	Featured        bool   `json:"featured"`
 }
 
 // LevelManifest stores the manifest of a level.
@@ -106,8 +106,7 @@ func ListLevels(dir string) []LevelJSON {
 			directory = strings.ReplaceAll(directory, string(os.PathSeparator), "/")
 			level := LevelJSON{
 				Name:            levelManifest.Name,
-				Author:          "TBD",
-				LevelID:         directory,
+				Author:          "Anonymous",
 				LevelUUID:       directory,
 				Date:            0,
 				Experimental:    true,
