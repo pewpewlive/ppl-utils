@@ -9,7 +9,7 @@ import (
 	"os"
 )
 
-func setHeaders(w http.ResponseWriter, r *http.Request) {
+func setHeaders(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "*")
 	w.Header().Set("Cache-Control", "no-store")
@@ -30,13 +30,13 @@ func list(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, marshalingError.Error(), http.StatusInternalServerError)
 		return
 	}
-	fmt.Fprintf(w, string(jsonStr))
+	fmt.Fprint(w, string(jsonStr))
 }
 
 func getStrippedLevelID(r *http.Request) (string, error) {
 	levelID := r.FormValue("level_uuid")
 	if levelID == "" {
-		return "", errors.New("Missing level_id paramenter in request")
+		return "", errors.New("missing level_id paramenter in request")
 	}
 	return levelID, nil
 }
@@ -81,8 +81,6 @@ func main() {
 	http.Handle("/", fs)
 
 	http.HandleFunc("/custom_levels/get_public_levels", list)
-	// Deprecated. Remove once Era2 has been released for a while.
-	http.HandleFunc("/custom_levels/list2", list)
 	http.HandleFunc("/custom_levels/get_level", getLevel)
 	http.HandleFunc("/custom_levels/get_level_manifest", getLevelManifest)
 

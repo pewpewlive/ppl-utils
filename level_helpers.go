@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
@@ -39,7 +38,12 @@ type LevelManifest struct {
 
 // GetDir returns the path to the content directory.
 func GetDir() string {
-	dir, err := filepath.Abs(filepath.Dir(os.Args[0]))
+	cwd, err := os.Getwd()
+	if err != nil {
+		panic(err)
+	}
+
+	dir, err := filepath.Abs(cwd)
 	if err != nil {
 		panic(err)
 	}
@@ -65,7 +69,7 @@ func ListLevels(dir string) []LevelJSON {
 				return stat_err
 			}
 
-			log.Print("path: " + path + ", file_info.Mode():" + string(file_info.Mode()))
+			log.Print("path: " + path + ", file_info.Mode():" + file_info.Mode().String())
 
 			fileIsASymLink := file_info.Mode()&os.ModeSymlink != 0
 			// If the file is a symlink, recursively walk it.
@@ -88,7 +92,7 @@ func ListLevels(dir string) []LevelJSON {
 				return nil
 			}
 
-			jsonContent, err := ioutil.ReadFile(path)
+			jsonContent, err := os.ReadFile(path)
 			if err != nil {
 				log.Print("Failed to read file at path " + path)
 				return nil
@@ -187,5 +191,5 @@ func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 
 // GetLevelManifest returns the manifest of the level.
 func GetLevelManifest(levelID string) ([]byte, error) {
-	return ioutil.ReadFile(levelID + "manifest.json")
+	return os.ReadFile(levelID + "manifest.json")
 }
