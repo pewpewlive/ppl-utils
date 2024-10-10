@@ -36,7 +36,7 @@ type LevelManifest struct {
 	HasScoreLeaderboard bool   `json:"has_score_leaderboard"`
 }
 
-// GetDir returns the path to the content directory.
+// GetDir returns the path to the levels directory.
 func GetDir() string {
 	cwd, err := os.Getwd()
 	if err != nil {
@@ -47,7 +47,7 @@ func GetDir() string {
 	if err != nil {
 		panic(err)
 	}
-	dir = dir + string(os.PathSeparator) + "content"
+	dir = dir + string(os.PathSeparator) + "levels"
 	return dir
 }
 
@@ -69,7 +69,7 @@ func ListLevels(dir string) []LevelJSON {
 				return stat_err
 			}
 
-			log.Print("path: " + path + ", file_info.Mode():" + file_info.Mode().String())
+			// log.Print("path: " + path + ", file_info.Mode():" + file_info.Mode().String())
 
 			fileIsASymLink := file_info.Mode()&os.ModeSymlink != 0
 			// If the file is a symlink, recursively walk it.

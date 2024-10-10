@@ -63,8 +63,8 @@ for config in configs:
   if os.path.exists('ppl-utils.exe'):
     shutil.move('ppl-utils.exe', directory_name)
 
-  # Copy the other content
-  shutil.copytree('content', os.path.join(directory_name, 'content'))
+  # Copy the level
+  shutil.copytree('levels', os.path.join(directory_name, 'levels'))
 
   # Remove all .DS_Store from the directory
   for root, dirs, files in os.walk(directory_name):
@@ -74,7 +74,7 @@ for config in configs:
         os.remove(path)
 
   # Remove all levels that do not start with 'sample_'
-  level_dir_path = os.path.join(directory_name, 'content', 'levels')
+  level_dir_path = os.path.join(directory_name, 'levels')
   for dir in os.listdir(level_dir_path):
     if not dir.startswith('sample_'):
       path = os.path.join(level_dir_path, dir)

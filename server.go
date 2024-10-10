@@ -1,13 +1,20 @@
 package main
 
 import (
+	"embed"
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 )
+
+//go:embed webasm/pewpew.*
+//go:embed webasm/pewpewlive.*
+var webasmFS embed.FS
 
 func setHeaders(w http.ResponseWriter, _ *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -76,10 +83,31 @@ func getLevelManifest(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	// Serves the static files
-	fs := cacheControlWrapper(http.FileServer(http.Dir(GetDir())))
-	http.Handle("/", fs)
+	// Change the current working directory to the directory of the executable
+	// Necessary to serve the levels if the binary is launched from an
+	// arbitrary directory.
+	executablePath, err := os.Executable()
+	if err != nil {
+		log.Print("Error getting executable path:", err)
+		return
+	}
+	executableDir := filepath.Dir(executablePath)
+	err = os.Chdir(executableDir)
+	if err != nil {
+		log.Print("Error changing directory:", err)
+		return
+	}
 
+	// Serve the static files
+	trimmedFS, trimmErr := fs.Sub(webasmFS, "webasm")
+	if trimmErr != nil {
+		log.Print("Error trimming directory:", trimmErr)
+		return
+	}
+	fsHandler := cacheControlWrapper(http.FileServerFS(trimmedFS))
+	http.Handle("/", fsHandler)
+
+	// Serve the levels
 	http.HandleFunc("/custom_levels/get_public_levels", list)
 	http.HandleFunc("/custom_levels/get_level", getLevel)
 	http.HandleFunc("/custom_levels/get_level_manifest", getLevelManifest)
