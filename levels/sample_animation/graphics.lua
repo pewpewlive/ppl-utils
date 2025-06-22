@@ -3,10 +3,7 @@ meshes = {}
 local inner_radius = 48 -- Inner hexagon
 local outer_radius = 96 -- Outer hexagon
 
--- Our animation will have 60 frames. We want the hexagons to make a full rotation each 60 frames (2 seconds).
--- This does not mean the animation is 60FPS yet!
 for frame = 0, 119 do
-  -- Tables for our mesh vertexes, segments
   local computed_vertexes, computed_segments = {}, {}
 
   local inner_segment = {} -- Inner hexagon
