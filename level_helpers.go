@@ -189,7 +189,18 @@ func GetLevelData(levelID string, disableFilter bool) (bytes.Buffer, error) {
 	return buffer, nil
 }
 
-// GetLevelManifest returns the manifest of the level.
-func GetLevelManifest(levelID string) ([]byte, error) {
-	return os.ReadFile(levelID + "manifest.json")
+// here `levelId` corresponds to the on-disk path of the level, for example:
+// /Users/JF/foo/bar/qux/ppl-utils/levels/sample_advanced_level/"
+func GetLevelManifestWithExtraInfo(levelId string) (bytes.Buffer, error) {
+	var buffer bytes.Buffer
+
+	manifest, manifestErr := os.ReadFile(levelId + "manifest.json")
+	if manifestErr != nil {
+		return buffer, manifestErr
+	}
+
+	buffer.WriteString("{\"manifest\":")
+	buffer.Write(manifest)
+	buffer.WriteString(",\"extra\":{\"name\":\"...\",\"author\":\"Anonymous\",\"account_id\":\"\", \"level_uuid\":\"irrelevant\", \"v\":0, \"date\":0, \"publish_state\":0, \"experimental\":true, \"leaderboard_kind\":0, \"diff\":0, \"featured\":false}}")
+	return buffer, nil
 }

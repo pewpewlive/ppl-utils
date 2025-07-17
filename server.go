@@ -43,7 +43,7 @@ func list(w http.ResponseWriter, r *http.Request) {
 func getStrippedLevelID(r *http.Request) (string, error) {
 	levelID := r.FormValue("level_uuid")
 	if levelID == "" {
-		return "", errors.New("missing level_id paramenter in request")
+		return "", errors.New("missing level_uuid paramenter in request")
 	}
 	return levelID, nil
 }
@@ -73,13 +73,13 @@ func getLevelManifest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	levelManifest, err := GetLevelManifest(strippedLevelID)
+	levelManifest, err := GetLevelManifestWithExtraInfo(strippedLevelID)
 	if err != nil {
 		log.Print(err.Error())
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	w.Write(levelManifest)
+	w.Write(levelManifest.Bytes())
 }
 
 func main() {
@@ -108,9 +108,9 @@ func main() {
 	http.Handle("/", fsHandler)
 
 	// Serve the levels
-	http.HandleFunc("/custom_levels/get_public_levels", list)
+	http.HandleFunc("/custom_levels/get_public_levels_v2", list)
 	http.HandleFunc("/custom_levels/get_level", getLevel)
-	http.HandleFunc("/custom_levels/get_level_manifest", getLevelManifest)
+	http.HandleFunc("/custom_levels/get_level_manifest3", getLevelManifest)
 
 	log.Print("Starting server on port 9000")
 	log.Print("open http://localhost:9000/pewpew.html to run PewPew")
