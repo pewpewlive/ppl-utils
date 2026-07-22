@@ -215,12 +215,8 @@
     };
 
     // Pass the get parameters to the Module as argc/argv values.
-    Module["arguments"] = window.location.search
-      .substr(1)
-      .trim()
-      .split("&");
-    // If no args were passed arguments = [''], enable developer mode.
-    if (!Module["arguments"][0]) Module["arguments"] = ["--developer"];
+    var urlArgs = window.location.search.substr(1).trim().split('&');
+    Module['arguments'] = urlArgs[0] ? urlArgs : ['--developer'];
 
     Module.setStatus('Downloading...');
     window.onerror = function (event) {
