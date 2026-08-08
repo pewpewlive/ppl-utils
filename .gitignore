@@ -1,5 +1,9 @@
 .DS_Store
 
+# Python
+__pycache__/
+*.pyc
+
 # Generated binaries
 ppl-utils
 ppl-utils.exe

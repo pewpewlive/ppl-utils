@@ -5,6 +5,8 @@
 import os
 import platform
 import shutil
+import time
+import zipfile
 
 configs = [{'env':{'GOOS':'windows', 'GOARCH':'amd64'}, 'name':'windows-x86_64'},
            {'env':{'GOOS':'windows', 'GOARCH':'arm64'}, 'name':'windows-arm64'},
@@ -81,7 +83,32 @@ for config in configs:
       shutil.rmtree(path)
 
   # Zip the temporary directory
-  shutil.make_archive(directory_name, 'zip', directory_name)
+  # Write the zip manually so we can set the executable bit on the binary.
+  # Without it, users on Linux and macOS have to chmod +x the binary themselves.
+  binary_name = 'ppl-utils' if config['env']['GOOS'] != 'windows' else 'ppl-utils.exe'
+  with zipfile.ZipFile(directory_name + '.zip', 'w', zipfile.ZIP_DEFLATED) as archive:
+    for root, dirs, files in os.walk(directory_name):
+      dirs.sort()
+      files.sort()
+      for dir in dirs:
+        path = os.path.join(root, dir)
+        info = zipfile.ZipInfo(os.path.relpath(path, directory_name).replace(os.sep, '/') + '/')
+        info.compress_type = zipfile.ZIP_DEFLATED
+        stat = os.stat(path)
+        info.date_time = time.localtime(stat.st_mtime)[:6]
+        info.external_attr = (stat.st_mode & 0xFFFF) << 16
+        archive.writestr(info, b'')
+      for file in files:
+        path = os.path.join(root, file)
+        info = zipfile.ZipInfo(os.path.relpath(path, directory_name).replace(os.sep, '/'))
+        info.compress_type = zipfile.ZIP_DEFLATED
+        stat = os.stat(path)
+        info.date_time = time.localtime(stat.st_mtime)[:6]
+        info.external_attr = (stat.st_mode & 0xFFFF) << 16
+        if file == binary_name:
+          info.external_attr = (0o755) << 16
+        with open(path, 'rb') as f:
+          archive.writestr(info, f.read())
 
   # Try to remove the temporary directory
   try:
